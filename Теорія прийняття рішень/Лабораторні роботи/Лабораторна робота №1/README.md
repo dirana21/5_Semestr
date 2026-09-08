@@ -13,7 +13,6 @@
 
 - [Звіт, що відображається на GitHub](./Звіт.md)
 - [Звіт Word](./Звіт_ЛР1_Левченко.docx)
-- [Другий примірник звіту Word](./Звіт_ЛР1_Левченко_примірник_2.docx)
 - [Вихідний код](./DecisionTheoryLab1/)
 - [Автоматичні перевірки](./DecisionTheoryLab1.Tests/)
 - [Таблиця результатів CSV](./results/pareto-results.csv)
@@ -37,6 +36,5 @@ dotnet run --project .\DecisionTheoryLab1.Tests\DecisionTheoryLab1.Tests.csproj 
 ├── results/                     # CSV та протоколи запуску
 ├── screenshots/                 # скриншоти виконання
 ├── Звіт.md                      # версія звіту для GitHub
-├── Звіт_ЛР1_Левченко.docx       # перший примірник Word
-└── Звіт_ЛР1_Левченко_примірник_2.docx
+└── Звіт_ЛР1_Левченко.docx       # звіт у форматі Word
 ```
