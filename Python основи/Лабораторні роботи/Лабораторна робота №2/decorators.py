@@ -6,7 +6,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from datetime import datetime
 from functools import wraps
-from typing import Any, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 
 
 P = ParamSpec("P")
@@ -91,4 +91,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
