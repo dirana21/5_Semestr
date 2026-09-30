@@ -1,0 +1,58 @@
+name: Deploy SOLID Showcase to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Патерни проєктування та їх прикладне використання/Лабораторні роботи/Лабораторна робота №1/**"
+      - ".github/workflows/solid-showcase-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT: Патерни проєктування та їх прикладне використання/Лабораторні роботи/Лабораторна робота №1/src/SolidShowcase.Web/SolidShowcase.Web.csproj
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Publish Blazor WebAssembly
+        run: dotnet publish "$PROJECT" -c Release -o publish
+
+      - name: Prepare GitHub Pages files
+        shell: bash
+        run: |
+          sed -i 's|<base href="/" />|<base href="/5_Semestr/" />|' publish/wwwroot/index.html
+          cp publish/wwwroot/index.html publish/wwwroot/404.html
+          touch publish/wwwroot/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: publish/wwwroot
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

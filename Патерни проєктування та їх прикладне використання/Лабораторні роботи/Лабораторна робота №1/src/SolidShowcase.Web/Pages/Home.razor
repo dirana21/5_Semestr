@@ -1,0 +1,163 @@
+@page "/"
+@using SolidShowcase.Core
+
+<PageTitle>SOLID Showcase</PageTitle>
+
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">S</div>
+            <div class="brand-title">SOLID SHOWCASE</div>
+            <div class="brand-subtitle">Лабораторна робота №1</div>
+        </div>
+
+        <div class="nav-label">ЗАВДАННЯ</div>
+        <nav class="module-nav">
+            @foreach (var module in _environment.Modules)
+            {
+                <button class="module-button @(module.Id == _moduleId ? "active" : string.Empty)"
+                        @onclick="() => SelectModule(module.Id)">
+                    <span class="module-number">@module.Number</span>
+                    <span>
+                        <strong>@module.Title</strong>
+                        <small>@module.Subtitle</small>
+                    </span>
+                </button>
+            }
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="solid-word">S&nbsp;&nbsp;O&nbsp;&nbsp;L&nbsp;&nbsp;I&nbsp;&nbsp;D</div>
+            <p>Натисніть дію — і подивіться, як архітектура працює крок за кроком.</p>
+        </div>
+    </aside>
+
+    <main class="workspace">
+        <header class="module-header">
+            <div class="eyebrow">ЗАВДАННЯ @CurrentModule.Number</div>
+            <h1>@CurrentModule.Title</h1>
+            <p>@CurrentModule.Subtitle</p>
+        </header>
+
+        <div class="actions">
+            @foreach (var action in _environment.GetActions(_moduleId))
+            {
+                <button class="action-button" @onclick="() => Execute(action.Id)">
+                    <span class="action-principle principle-@action.Principle.ToString().ToLowerInvariant()">@action.Principle</span>
+                    <span>
+                        <strong>@action.Label</strong>
+                        <small>@action.Hint</small>
+                    </span>
+                </button>
+            }
+        </div>
+
+        <section class="result-card">
+            <div class="card-topline">
+                <span>РЕЗУЛЬТАТ</span>
+                <span class="status-pill">@(_environment.Trace.Count == 0 ? "ГОТОВО" : $"{_environment.Trace.Count} КРОКІВ")</span>
+            </div>
+            <h2>@_result.Title</h2>
+            <div class="result-lines">
+                @foreach (var line in _result.Lines)
+                {
+                    <div class="result-line">@line</div>
+                }
+            </div>
+        </section>
+    </main>
+
+    <aside class="trace-panel">
+        <div class="trace-heading">
+            <div>
+                <span class="trace-eyebrow">ВИКОНАННЯ КОДУ</span>
+                <h2>Покрокова траса</h2>
+            </div>
+            <span class="trace-badge principle-@SelectedPrincipleClass">@SelectedBadge</span>
+        </div>
+
+        @if (_environment.Trace.Count == 0)
+        {
+            <div class="empty-trace">
+                <div class="pulse-dot"></div>
+                <strong>Траса очікує на дію</strong>
+                <p>Оберіть сценарій у центральній частині екрана.</p>
+            </div>
+        }
+        else
+        {
+            <div class="trace-list">
+                @for (var index = 0; index < _environment.Trace.Count; index++)
+                {
+                    var stepIndex = index;
+                    var step = _environment.Trace[index];
+                    <button class="trace-step @(stepIndex == _selectedStep ? "selected" : string.Empty)"
+                            @onclick="() => _selectedStep = stepIndex">
+                        <span class="step-number">@step.Sequence.ToString("00")</span>
+                        <span class="step-copy">
+                            <strong>@step.Action</strong>
+                            <small>@step.Location</small>
+                        </span>
+                        <span class="step-principle principle-@step.Principle.ToString().ToLowerInvariant()">@step.Principle</span>
+                    </button>
+                }
+            </div>
+
+            @if (SelectedStep is { } selected)
+            {
+                <div class="trace-detail">
+                    <code class="location">@selected.Location</code>
+                    <p><strong>@selected.PrincipleName.</strong> @selected.Explanation</p>
+                </div>
+                <pre class="code-preview"><code>@foreach (var codeLine in NumberedCode(selected))
+{
+<span class="@(codeLine.Highlighted ? "highlighted" : string.Empty)"><b>@(codeLine.Highlighted ? "▶" : " ") @codeLine.Number.ToString("00") │</b> @codeLine.Text</span>
+}</code></pre>
+            }
+        }
+    </aside>
+</div>
+
+<footer class="mobile-note">SOLID Showcase · WPF + Blazor WebAssembly · C#</footer>
+
+@code {
+    private readonly DemoEnvironment _environment = new();
+    private string _moduleId = "import";
+    private DemoResult _result = new("", []);
+    private int _selectedStep;
+
+    protected override void OnInitialized()
+    {
+        _result = _environment.GetOverview(_moduleId);
+    }
+
+    private DemoModule CurrentModule => _environment.Modules.First(module => module.Id == _moduleId);
+
+    private SolidTraceStep? SelectedStep =>
+        _environment.Trace.Count == 0 ? null : _environment.Trace[Math.Clamp(_selectedStep, 0, _environment.Trace.Count - 1)];
+
+    private string SelectedBadge => SelectedStep is null ? "SOLID" : $"{SelectedStep.Principle} · {SelectedStep.Sequence:00}";
+
+    private string SelectedPrincipleClass => SelectedStep?.Principle.ToString().ToLowerInvariant() ?? "solid";
+
+    private void SelectModule(string moduleId)
+    {
+        _moduleId = moduleId;
+        _result = _environment.GetOverview(moduleId);
+        _selectedStep = 0;
+    }
+
+    private void Execute(string actionId)
+    {
+        _result = _environment.Execute(actionId);
+        _selectedStep = 0;
+    }
+
+    private static IReadOnlyList<CodeLine> NumberedCode(SolidTraceStep step) => step.Code
+        .Replace("\r", string.Empty)
+        .Split('\n')
+        .Select((line, index) => new CodeLine(index + 1, line, index + 1 == step.HighlightedLine))
+        .ToList();
+
+    private sealed record CodeLine(int Number, string Text, bool Highlighted);
+}
