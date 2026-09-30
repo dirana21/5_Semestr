@@ -84,4 +84,32 @@ public sealed class SolidShowcaseTests
         Assert.True(trip.Vehicle.IsAvailable);
         Assert.Equal(650m, payment);
     }
+
+    [Fact]
+    public void ManualLibraryInput_CanBeAddedSearchedAndUpdated()
+    {
+        var environment = new DemoEnvironment();
+        var draft = new LibraryItemDraft("Книга", "Архітектура коду", 2026, "Campus", "Олена", "Освіта", 320, 0, new DateOnly(2026, 1, 1), "");
+
+        environment.AddLibraryItem(draft);
+        var item = Assert.Single(environment.CatalogItems);
+        var search = environment.SearchLibrary("Автор", "Олена");
+        environment.UpdateLibraryItem(item.Id, draft with { Title = "SOLID на практиці" });
+
+        Assert.Contains(search.Lines, line => line.Contains("Архітектура коду"));
+        Assert.Equal("SOLID на практиці", environment.CatalogItems.Single().Title);
+    }
+
+    [Fact]
+    public void ManualFleetInput_AddsResourcesAndDispatchesRequest()
+    {
+        var environment = new DemoEnvironment();
+
+        environment.AddDriver("Тестовий водій", 12);
+        environment.AddVehicle("Test Truck", 30m, 3);
+        var result = environment.DispatchCustom("Харків", "Верстати", 25m, 700, 10);
+
+        Assert.Contains(result.Lines, line => line.Contains("Test Truck") && line.Contains("у рейсі"));
+        Assert.Contains(environment.Trace, step => step.Location == "DispatchService.Dispatch()");
+    }
 }

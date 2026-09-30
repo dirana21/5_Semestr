@@ -63,6 +63,20 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="TextBox" x:Key="InputBox">
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="Margin" Value="0,5,10,10" />
+            <Setter Property="BorderBrush" Value="#D5DAD4" />
+            <Setter Property="Background" Value="#FBFBF9" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style TargetType="ComboBox" x:Key="InputCombo">
+            <Setter Property="Padding" Value="8,6" />
+            <Setter Property="Margin" Value="0,5,10,10" />
+            <Setter Property="BorderBrush" Value="#D5DAD4" />
+            <Setter Property="Background" Value="#FBFBF9" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -122,6 +136,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel>
@@ -142,7 +157,106 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Border Grid.Row="2" Background="White" BorderBrush="#E1E3DE" BorderThickness="1" CornerRadius="16" Padding="26">
+
+            <Border Grid.Row="2" Background="White" BorderBrush="#DFE2DC" BorderThickness="1"
+                    CornerRadius="16" Padding="20" Margin="0,0,0,18" MaxHeight="345">
+                <Grid>
+                    <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                    <DockPanel Margin="0,0,0,14">
+                        <Border Background="#F6EDCF" CornerRadius="8" Padding="9,5" DockPanel.Dock="Right">
+                            <TextBlock Text="РУЧНИЙ РЕЖИМ" Foreground="#6F5A25" FontSize="9" FontWeight="Bold" />
+                        </Border>
+                        <StackPanel>
+                            <TextBlock Text="ВЛАСНІ ДАНІ" Foreground="#2C7A73" FontSize="10" FontWeight="Bold" />
+                            <TextBlock x:Name="ManualTitle" Text="Імпортуйте власний файл" FontSize="19"
+                                       FontWeight="SemiBold" Foreground="{StaticResource Ink}" Margin="0,3,0,0" />
+                        </StackPanel>
+                    </DockPanel>
+
+                    <Grid x:Name="ImportForm" Grid.Row="1">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="150" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Формат" Foreground="{StaticResource Muted}" FontSize="11" FontWeight="SemiBold" />
+                            <ComboBox x:Name="ImportFormatCombo" Style="{StaticResource InputCombo}" SelectedIndex="0">
+                                <ComboBoxItem Content="CSV" /><ComboBoxItem Content="JSON" />
+                            </ComboBox>
+                            <Button Content="Приклад" Style="{StaticResource ActionButton}" Click="FillImportSample_Click" />
+                            <Button Content="Імпортувати" Style="{StaticResource ActionButton}" Click="ManualImport_Click" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Вміст файла" Foreground="{StaticResource Muted}" FontSize="11" FontWeight="SemiBold" />
+                            <TextBox x:Name="ImportContentBox" Style="{StaticResource InputBox}" AcceptsReturn="True"
+                                     VerticalScrollBarVisibility="Auto" FontFamily="Consolas" TextWrapping="NoWrap" />
+                        </StackPanel>
+                    </Grid>
+
+                    <ScrollViewer x:Name="LibraryForm" Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition /><ColumnDefinition /><ColumnDefinition /><ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Column="0"><TextBlock Text="Тип" /><ComboBox x:Name="LibraryTypeCombo" Style="{StaticResource InputCombo}" SelectedIndex="0"><ComboBoxItem Content="Книга" /><ComboBoxItem Content="Газета" /><ComboBoxItem Content="Альманах" /></ComboBox></StackPanel>
+                            <StackPanel Grid.Column="1"><TextBlock Text="Назва" /><TextBox x:Name="LibraryTitleBox" Style="{StaticResource InputBox}" /></StackPanel>
+                            <StackPanel Grid.Column="2"><TextBlock Text="Видавництво" /><TextBox x:Name="LibraryPublisherBox" Style="{StaticResource InputBox}" /></StackPanel>
+                            <StackPanel Grid.Column="3"><TextBlock Text="Рік" /><TextBox x:Name="LibraryYearBox" Text="2026" Style="{StaticResource InputBox}" /></StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0"><TextBlock Text="Автор" /><TextBox x:Name="LibraryAuthorBox" Style="{StaticResource InputBox}" /></StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1"><TextBlock Text="Жанр" /><TextBox x:Name="LibraryGenreBox" Style="{StaticResource InputBox}" /></StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="2"><TextBlock Text="Сторінки / № газети" /><TextBox x:Name="LibraryNumberBox" Text="100" Style="{StaticResource InputBox}" /></StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="3"><TextBlock Text="Дата" /><TextBox x:Name="LibraryDateBox" Text="2026-09-30" Style="{StaticResource InputBox}" /></StackPanel>
+                            <StackPanel Grid.Row="2" Grid.ColumnSpan="4"><TextBlock Text="Колонки газети або твори альманаху" /><TextBox x:Name="LibraryDetailsBox" Style="{StaticResource InputBox}" /></StackPanel>
+                            <WrapPanel Grid.Row="3" Grid.ColumnSpan="4">
+                                <Button Content="Додати" Style="{StaticResource ActionButton}" Click="AddLibrary_Click" />
+                                <Button Content="Завантажити вибране" Style="{StaticResource ActionButton}" Click="LoadLibrary_Click" />
+                                <Button Content="Зберегти зміни" Style="{StaticResource ActionButton}" Click="UpdateLibrary_Click" />
+                                <Button Content="Видалити" Style="{StaticResource ActionButton}" Click="DeleteLibrary_Click" />
+                            </WrapPanel>
+                            <Grid Grid.Row="4" Grid.ColumnSpan="4">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="2*" /><ColumnDefinition /><ColumnDefinition Width="2*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <ComboBox x:Name="LibrarySelectionCombo" DisplayMemberPath="Title" SelectedValuePath="Id" Style="{StaticResource InputCombo}" />
+                                <ComboBox x:Name="SearchFieldCombo" Grid.Column="1" Style="{StaticResource InputCombo}" SelectedIndex="0"><ComboBoxItem Content="Назва" /><ComboBoxItem Content="Автор" /><ComboBoxItem Content="Видавництво" /><ComboBoxItem Content="Рік" /></ComboBox>
+                                <TextBox x:Name="SearchQueryBox" Grid.Column="2" Style="{StaticResource InputBox}" />
+                                <Button Grid.Column="3" Content="Знайти" Style="{StaticResource ActionButton}" Click="SearchLibrary_Click" />
+                            </Grid>
+                        </Grid>
+                    </ScrollViewer>
+
+                    <TabControl x:Name="FleetForm" Grid.Row="1" Visibility="Collapsed" Background="Transparent" BorderThickness="0">
+                        <TabItem Header="Заявка на рейс">
+                            <WrapPanel Margin="8">
+                                <StackPanel Width="155"><TextBlock Text="Призначення" /><TextBox x:Name="DestinationBox" Style="{StaticResource InputBox}" /></StackPanel>
+                                <StackPanel Width="155"><TextBlock Text="Тип вантажу" /><TextBox x:Name="CargoTypeBox" Style="{StaticResource InputBox}" /></StackPanel>
+                                <StackPanel Width="110"><TextBlock Text="Вага, т" /><TextBox x:Name="CargoWeightBox" Text="1" Style="{StaticResource InputBox}" /></StackPanel>
+                                <StackPanel Width="110"><TextBlock Text="Відстань" /><TextBox x:Name="DistanceBox" Text="100" Style="{StaticResource InputBox}" /></StackPanel>
+                                <StackPanel Width="110"><TextBlock Text="Стаж" /><TextBox x:Name="RequiredExperienceBox" Text="1" Style="{StaticResource InputBox}" /></StackPanel>
+                                <Button Content="Створити рейс" Style="{StaticResource ActionButton}" Click="DispatchCustom_Click" />
+                            </WrapPanel>
+                        </TabItem>
+                        <TabItem Header="Новий водій">
+                            <WrapPanel Margin="8">
+                                <StackPanel Width="240"><TextBlock Text="Ім'я" /><TextBox x:Name="DriverNameBox" Style="{StaticResource InputBox}" /></StackPanel>
+                                <StackPanel Width="140"><TextBlock Text="Стаж" /><TextBox x:Name="DriverExperienceBox" Text="1" Style="{StaticResource InputBox}" /></StackPanel>
+                                <Button Content="Додати водія" Style="{StaticResource ActionButton}" Click="AddDriver_Click" />
+                            </WrapPanel>
+                        </TabItem>
+                        <TabItem Header="Новий автомобіль">
+                            <WrapPanel Margin="8">
+                                <StackPanel Width="220"><TextBlock Text="Модель" /><TextBox x:Name="VehicleModelBox" Style="{StaticResource InputBox}" /></StackPanel>
+                                <StackPanel Width="160"><TextBlock Text="Вантажопідйомність" /><TextBox x:Name="VehicleCapacityBox" Text="3.5" Style="{StaticResource InputBox}" /></StackPanel>
+                                <StackPanel Width="140"><TextBlock Text="Складність" /><TextBox x:Name="VehicleDifficultyBox" Text="2" Style="{StaticResource InputBox}" /></StackPanel>
+                                <Button Content="Додати автомобіль" Style="{StaticResource ActionButton}" Click="AddVehicle_Click" />
+                            </WrapPanel>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" Background="White" BorderBrush="#E1E3DE" BorderThickness="1" CornerRadius="16" Padding="26" MinHeight="180">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

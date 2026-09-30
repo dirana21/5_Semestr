@@ -52,6 +52,106 @@
             }
         </div>
 
+        <section class="manual-card">
+            <div class="manual-heading">
+                <div>
+                    <span class="eyebrow">ВЛАСНІ ДАНІ</span>
+                    <h2>@ManualTitle</h2>
+                </div>
+                <span class="manual-badge">РУЧНИЙ РЕЖИМ</span>
+            </div>
+
+            @if (_moduleId == "import")
+            {
+                <div class="form-grid import-grid">
+                    <label>Формат
+                        <select @bind="_importFormat">
+                            <option>CSV</option>
+                            <option>JSON</option>
+                        </select>
+                    </label>
+                    <div class="field-actions">
+                        <button class="secondary-button" @onclick="FillImportSample">Заповнити прикладом</button>
+                        <button class="primary-button" @onclick="ImportCustom">Імпортувати дані</button>
+                    </div>
+                    <label class="full-width">Вміст файла
+                        <textarea rows="7" @bind="_importContent" @bind:event="oninput" placeholder="Вставте CSV або JSON..."></textarea>
+                    </label>
+                </div>
+            }
+            else if (_moduleId == "library")
+            {
+                <div class="form-grid library-grid">
+                    <label>Тип видання
+                        <select @bind="_libraryKind">
+                            <option>Книга</option><option>Газета</option><option>Альманах</option>
+                        </select>
+                    </label>
+                    <label>Назва<input @bind="_libraryTitle" @bind:event="oninput" placeholder="Назва видання" /></label>
+                    <label>Видавництво<input @bind="_libraryPublisher" @bind:event="oninput" placeholder="Видавництво" /></label>
+                    <label>Рік<input type="number" @bind="_libraryYear" /></label>
+                    <label>Автор<input @bind="_libraryAuthor" @bind:event="oninput" placeholder="Для книги" /></label>
+                    <label>Жанр<input @bind="_libraryGenre" @bind:event="oninput" placeholder="Книга або альманах" /></label>
+                    <label>Сторінки<input type="number" @bind="_libraryPages" /></label>
+                    <label>Номер газети<input type="number" @bind="_libraryIssue" /></label>
+                    <label>Дата випуску<input @bind="_libraryReleaseDate" @bind:event="oninput" placeholder="2026-09-30" /></label>
+                    <label class="span-two">Колонки газети або твори альманаху
+                        <input @bind="_libraryDetails" @bind:event="oninput" placeholder="Розділяйте твори комами" />
+                    </label>
+                    <div class="field-actions span-two">
+                        <button class="primary-button" @onclick="AddLibrary">Додати видання</button>
+                        <button class="secondary-button" @onclick="LoadSelectedLibrary">Завантажити вибране</button>
+                        <button class="secondary-button" @onclick="UpdateLibrary">Зберегти зміни</button>
+                        <button class="danger-button" @onclick="RemoveLibrary">Видалити</button>
+                    </div>
+                    <label class="span-two">Вибране видання
+                        <select @bind="_selectedLibraryId">
+                            <option value="">Оберіть об'єкт каталогу</option>
+                            @foreach (var item in _environment.CatalogItems)
+                            {
+                                <option value="@item.Id">@item.Kind · @item.Title</option>
+                            }
+                        </select>
+                    </label>
+                    <label>Поле пошуку
+                        <select @bind="_searchField"><option>Назва</option><option>Автор</option><option>Видавництво</option><option>Рік</option></select>
+                    </label>
+                    <label>Запит<input @bind="_searchQuery" @bind:event="oninput" placeholder="Що знайти?" /></label>
+                    <div class="field-actions span-two">
+                        <button class="primary-button" @onclick="SearchLibrary">Знайти</button>
+                        <button class="secondary-button" @onclick="ShowAllLibrary">Показати весь каталог</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="fleet-forms">
+                    <div class="mini-form">
+                        <h3>Новий водій</h3>
+                        <label>Ім'я<input @bind="_driverName" @bind:event="oninput" placeholder="Ім'я та прізвище" /></label>
+                        <label>Стаж, років<input type="number" @bind="_driverExperience" /></label>
+                        <button class="secondary-button" @onclick="AddDriver">Додати водія</button>
+                    </div>
+                    <div class="mini-form">
+                        <h3>Новий автомобіль</h3>
+                        <label>Модель<input @bind="_vehicleModel" @bind:event="oninput" placeholder="Наприклад, DAF XF" /></label>
+                        <label>Вантажопідйомність, т<input type="number" step="0.1" @bind="_vehicleCapacity" /></label>
+                        <label>Складність керування<input type="number" @bind="_vehicleDifficulty" /></label>
+                        <button class="secondary-button" @onclick="AddVehicle">Додати автомобіль</button>
+                    </div>
+                    <div class="mini-form trip-form">
+                        <h3>Заявка на перевезення</h3>
+                        <label>Пункт призначення<input @bind="_destination" @bind:event="oninput" placeholder="Місто" /></label>
+                        <label>Тип вантажу<input @bind="_cargoType" @bind:event="oninput" placeholder="Обладнання" /></label>
+                        <label>Вага, т<input type="number" step="0.1" @bind="_cargoWeight" /></label>
+                        <label>Відстань, км<input type="number" @bind="_distance" /></label>
+                        <label>Необхідний стаж<input type="number" @bind="_requiredExperience" /></label>
+                        <button class="primary-button" @onclick="DispatchCustom">Створити рейс</button>
+                    </div>
+                </div>
+            }
+        </section>
+
         <section class="result-card">
             <div class="card-topline">
                 <span>РЕЗУЛЬТАТ</span>
@@ -125,6 +225,31 @@
     private string _moduleId = "import";
     private DemoResult _result = new("", []);
     private int _selectedStep;
+    private string _importFormat = "CSV";
+    private string _importContent = string.Empty;
+    private string _libraryKind = "Книга";
+    private string _libraryTitle = string.Empty;
+    private string _libraryPublisher = string.Empty;
+    private int _libraryYear = DateTime.Now.Year;
+    private string _libraryAuthor = string.Empty;
+    private string _libraryGenre = string.Empty;
+    private int _libraryPages = 100;
+    private int _libraryIssue = 1;
+    private string _libraryReleaseDate = DateTime.Today.ToString("yyyy-MM-dd");
+    private string _libraryDetails = string.Empty;
+    private string _selectedLibraryId = string.Empty;
+    private string _searchField = "Назва";
+    private string _searchQuery = string.Empty;
+    private string _driverName = string.Empty;
+    private int _driverExperience = 1;
+    private string _vehicleModel = string.Empty;
+    private decimal _vehicleCapacity = 3.5m;
+    private int _vehicleDifficulty = 2;
+    private string _destination = string.Empty;
+    private string _cargoType = string.Empty;
+    private decimal _cargoWeight = 1m;
+    private int _distance = 100;
+    private int _requiredExperience = 1;
 
     protected override void OnInitialized()
     {
@@ -132,6 +257,12 @@
     }
 
     private DemoModule CurrentModule => _environment.Modules.First(module => module.Id == _moduleId);
+    private string ManualTitle => _moduleId switch
+    {
+        "import" => "Імпортуйте власний файл",
+        "library" => "Керуйте каталогом",
+        _ => "Створіть власні дані автобази"
+    };
 
     private SolidTraceStep? SelectedStep =>
         _environment.Trace.Count == 0 ? null : _environment.Trace[Math.Clamp(_selectedStep, 0, _environment.Trace.Count - 1)];
@@ -150,6 +281,76 @@
     private void Execute(string actionId)
     {
         _result = _environment.Execute(actionId);
+        _selectedStep = 0;
+    }
+
+    private void FillImportSample()
+    {
+        _importContent = _importFormat == "JSON"
+            ? "[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"description\":\"Власна операція\",\"amount\":450.75}]"
+            : "id,description,amount\n11111111-1111-1111-1111-111111111111,Власна операція,450.75";
+    }
+
+    private void ImportCustom() => Apply(_environment.ImportCustom(_importContent, _importFormat));
+
+    private LibraryItemDraft LibraryDraft() => new(
+        _libraryKind, _libraryTitle, _libraryYear, _libraryPublisher, _libraryAuthor, _libraryGenre,
+        _libraryPages, _libraryIssue,
+        DateOnly.TryParse(_libraryReleaseDate, out var date) ? date : DateOnly.FromDateTime(DateTime.Today),
+        _libraryDetails);
+
+    private void AddLibrary()
+    {
+        Apply(_environment.AddLibraryItem(LibraryDraft()));
+        _selectedLibraryId = _environment.CatalogItems.LastOrDefault()?.Id.ToString() ?? string.Empty;
+    }
+
+    private void UpdateLibrary()
+    {
+        if (Guid.TryParse(_selectedLibraryId, out var id)) Apply(_environment.UpdateLibraryItem(id, LibraryDraft()));
+    }
+
+    private void RemoveLibrary()
+    {
+        if (Guid.TryParse(_selectedLibraryId, out var id))
+        {
+            Apply(_environment.RemoveLibraryItem(id));
+            _selectedLibraryId = string.Empty;
+        }
+    }
+
+    private void LoadSelectedLibrary()
+    {
+        if (!Guid.TryParse(_selectedLibraryId, out var id)) return;
+        var item = _environment.CatalogItems.FirstOrDefault(entry => entry.Id == id);
+        if (item is null) return;
+        _libraryKind = item.Kind;
+        _libraryTitle = item.Title;
+        _libraryPublisher = item.Publisher;
+        _libraryYear = item.Year;
+        switch (item)
+        {
+            case Book book:
+                _libraryAuthor = book.Author; _libraryGenre = book.Genre; _libraryPages = book.Pages;
+                break;
+            case Newspaper newspaper:
+                _libraryIssue = newspaper.IssueNumber; _libraryReleaseDate = newspaper.ReleaseDate.ToString("yyyy-MM-dd"); _libraryDetails = newspaper.Columns;
+                break;
+            case Almanac almanac:
+                _libraryGenre = almanac.Genre; _libraryDetails = string.Join(", ", almanac.Works);
+                break;
+        }
+    }
+
+    private void SearchLibrary() => Apply(_environment.SearchLibrary(_searchField, _searchQuery));
+    private void ShowAllLibrary() => Apply(_environment.GetOverview("library"));
+    private void AddDriver() => Apply(_environment.AddDriver(_driverName, _driverExperience));
+    private void AddVehicle() => Apply(_environment.AddVehicle(_vehicleModel, _vehicleCapacity, _vehicleDifficulty));
+    private void DispatchCustom() => Apply(_environment.DispatchCustom(_destination, _cargoType, _cargoWeight, _distance, _requiredExperience));
+
+    private void Apply(DemoResult result)
+    {
+        _result = result;
         _selectedStep = 0;
     }
 

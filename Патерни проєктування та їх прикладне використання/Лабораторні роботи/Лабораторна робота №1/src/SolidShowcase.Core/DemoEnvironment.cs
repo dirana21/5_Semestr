@@ -3,6 +3,18 @@ using System.Text.Json;
 
 namespace SolidShowcase.Core;
 
+public sealed record LibraryItemDraft(
+    string Kind,
+    string Title,
+    int Year,
+    string Publisher,
+    string Author,
+    string Genre,
+    int Pages,
+    int IssueNumber,
+    DateOnly ReleaseDate,
+    string Details);
+
 public sealed class DemoEnvironment
 {
     private readonly SolidTracer _tracer = new();
@@ -29,6 +41,9 @@ public sealed class DemoEnvironment
     ];
 
     public IReadOnlyList<SolidTraceStep> Trace => _tracer.Steps;
+    public IReadOnlyList<LibraryItem> CatalogItems => _catalog.Items;
+    public IReadOnlyList<Driver> Drivers => _fleetRepository.Drivers;
+    public IReadOnlyList<Vehicle> Vehicles => _fleetRepository.Vehicles;
 
     public IReadOnlyList<DemoAction> GetActions(string moduleId) => moduleId switch
     {
@@ -77,6 +92,113 @@ public sealed class DemoEnvironment
         catch (InvalidOperationException exception)
         {
             return new DemoResult("Операцію неможливо виконати", [exception.Message]);
+        }
+    }
+
+    public DemoResult ImportCustom(string content, string format)
+    {
+        _tracer.Clear();
+        if (string.IsNullOrWhiteSpace(content))
+            return new DemoResult("Немає даних для імпорту", ["Вставте CSV або JSON у поле вводу."]);
+
+        try
+        {
+            ITransactionParser parser = format.Equals("JSON", StringComparison.OrdinalIgnoreCase)
+                ? new JsonTransactionParser(_tracer)
+                : new CsvTransactionParser(_tracer);
+            return RunImport(content, parser, format.ToUpperInvariant());
+        }
+        catch (Exception exception) when (exception is FormatException or JsonException)
+        {
+            return new DemoResult("Помилка формату", [exception.Message]);
+        }
+    }
+
+    public DemoResult AddLibraryItem(LibraryItemDraft draft)
+    {
+        _tracer.Clear();
+        if (string.IsNullOrWhiteSpace(draft.Title) || string.IsNullOrWhiteSpace(draft.Publisher))
+            return new DemoResult("Заповніть обов'язкові поля", ["Назва і видавництво не можуть бути порожніми."]);
+
+        var item = CreateLibraryItem(Guid.NewGuid(), draft);
+        _catalog.Add(item);
+        return CatalogSnapshot($"Додано: {item.Title}");
+    }
+
+    public DemoResult UpdateLibraryItem(Guid id, LibraryItemDraft draft)
+    {
+        _tracer.Clear();
+        var updated = CreateLibraryItem(id, draft);
+        var success = _catalog.Update(updated);
+        return CatalogSnapshot(success ? $"Оновлено: {updated.Title}" : "Видання не знайдено");
+    }
+
+    public DemoResult RemoveLibraryItem(Guid id)
+    {
+        _tracer.Clear();
+        var success = _catalog.Remove(id);
+        return CatalogSnapshot(success ? "Видання видалено" : "Видання не знайдено");
+    }
+
+    public DemoResult SearchLibrary(string field, string query)
+    {
+        _tracer.Clear();
+        if (string.IsNullOrWhiteSpace(query)) return CatalogSnapshot("Каталог бібліотеки");
+        ILibrarySearchStrategy strategy = field switch
+        {
+            "Автор" => new AuthorSearchStrategy(),
+            "Видавництво" => new PublisherSearchStrategy(),
+            "Рік" => new YearSearchStrategy(),
+            _ => new TitleSearchStrategy()
+        };
+        var items = _catalog.Search(strategy, query);
+        return new DemoResult($"Пошук {strategy.Name}", items.Count == 0
+            ? ["Нічого не знайдено"]
+            : items.Select(FormatLibraryItem).ToList());
+    }
+
+    public DemoResult AddDriver(string name, int experienceYears)
+    {
+        _tracer.Clear();
+        if (string.IsNullOrWhiteSpace(name) || experienceYears < 0)
+            return new DemoResult("Некоректні дані водія", ["Вкажіть ім'я та невід'ємний стаж."]);
+        var driver = new Driver(Guid.NewGuid(), name.Trim(), experienceYears);
+        _fleetRepository.AddDriver(driver);
+        _tracer.Add("Автобаза", $"Додано водія: {driver.Name}", "IFleetRepository.AddDriver()",
+            SolidPrinciple.D, "Dependency Inversion Principle",
+            "Інтерфейс користувача додає водія через контракт репозиторію, не працюючи з внутрішнім списком.",
+            "_fleetRepository.AddDriver(new Driver(id, name, experience));", 1);
+        return FleetSnapshot($"Водія {driver.Name} додано");
+    }
+
+    public DemoResult AddVehicle(string model, decimal capacityTons, int difficulty)
+    {
+        _tracer.Clear();
+        if (string.IsNullOrWhiteSpace(model) || capacityTons <= 0 || difficulty < 1)
+            return new DemoResult("Некоректні дані автомобіля", ["Вкажіть модель, додатну вантажопідйомність і складність."]);
+        var vehicle = new Vehicle(Guid.NewGuid(), model.Trim(), capacityTons, difficulty);
+        _fleetRepository.AddVehicle(vehicle);
+        _tracer.Add("Автобаза", $"Додано автомобіль: {vehicle.Model}", "IFleetRepository.AddVehicle()",
+            SolidPrinciple.D, "Dependency Inversion Principle",
+            "Новий автомобіль передається репозиторію через абстракцію IFleetRepository.",
+            "_fleetRepository.AddVehicle(new Vehicle(id, model, capacity, difficulty));", 1);
+        return FleetSnapshot($"Автомобіль {vehicle.Model} додано");
+    }
+
+    public DemoResult DispatchCustom(string destination, string cargoType, decimal weightTons, int distanceKm, int requiredExperience)
+    {
+        _tracer.Clear();
+        if (string.IsNullOrWhiteSpace(destination) || string.IsNullOrWhiteSpace(cargoType) || weightTons <= 0 || distanceKm <= 0)
+            return new DemoResult("Некоректна заявка", ["Заповніть пункт призначення, тип вантажу, вагу та відстань."]);
+        try
+        {
+            var request = new CargoRequest(Guid.NewGuid(), destination.Trim(), cargoType.Trim(), weightTons, distanceKm, requiredExperience);
+            var trip = _dispatch.Dispatch(request);
+            return FleetSnapshot($"Рейс створено: {trip.Driver.Name} → {trip.Vehicle.Model}");
+        }
+        catch (InvalidOperationException exception)
+        {
+            return new DemoResult("Рейс не створено", [exception.Message]);
         }
     }
 
@@ -189,6 +311,16 @@ public sealed class DemoEnvironment
             $"Водій: {driver.Name,-18} {driver.ExperienceYears} р. · {(driver.IsAvailable ? "вільний" : "у рейсі")}"));
         return new DemoResult(title, lines);
     }
+
+    private static LibraryItem CreateLibraryItem(Guid id, LibraryItemDraft draft) => draft.Kind switch
+    {
+        "Газета" => new Newspaper(id, draft.Title.Trim(), draft.Year, draft.Publisher.Trim(),
+            draft.IssueNumber, draft.ReleaseDate, draft.Details.Trim()),
+        "Альманах" => new Almanac(id, draft.Title.Trim(), draft.Year, draft.Publisher.Trim(), draft.Genre.Trim(),
+            draft.Details.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)),
+        _ => new Book(id, draft.Title.Trim(), draft.Year, draft.Publisher.Trim(), draft.Author.Trim(),
+            draft.Genre.Trim(), draft.Pages)
+    };
 
     private static string FormatLibraryItem(LibraryItem item) =>
         $"{item.Kind,-9} · {item.Title} ({item.Year}) · {item.Details}";

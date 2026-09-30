@@ -45,22 +45,26 @@ public interface IFleetRepository
     IReadOnlyList<Driver> Drivers { get; }
     IReadOnlyList<Vehicle> Vehicles { get; }
     IReadOnlyList<Trip> Trips { get; }
+    void AddDriver(Driver driver);
+    void AddVehicle(Vehicle vehicle);
     void AddTrip(Trip trip);
 }
 
 public sealed class InMemoryFleetRepository : IFleetRepository
 {
+    private readonly List<Driver> _drivers;
+    private readonly List<Vehicle> _vehicles;
     private readonly List<Trip> _trips = [];
 
     public InMemoryFleetRepository()
     {
-        Drivers =
+        _drivers =
         [
             new Driver(Guid.NewGuid(), "Олексій Бондар", 8),
             new Driver(Guid.NewGuid(), "Марія Коваль", 5),
             new Driver(Guid.NewGuid(), "Іван Мельник", 2)
         ];
-        Vehicles =
+        _vehicles =
         [
             new Vehicle(Guid.NewGuid(), "Mercedes Sprinter", 3.5m, 2),
             new Vehicle(Guid.NewGuid(), "MAN TGL", 8m, 4),
@@ -68,9 +72,11 @@ public sealed class InMemoryFleetRepository : IFleetRepository
         ];
     }
 
-    public IReadOnlyList<Driver> Drivers { get; }
-    public IReadOnlyList<Vehicle> Vehicles { get; }
+    public IReadOnlyList<Driver> Drivers => _drivers;
+    public IReadOnlyList<Vehicle> Vehicles => _vehicles;
     public IReadOnlyList<Trip> Trips => _trips;
+    public void AddDriver(Driver driver) => _drivers.Add(driver);
+    public void AddVehicle(Vehicle vehicle) => _vehicles.Add(vehicle);
     public void AddTrip(Trip trip) => _trips.Add(trip);
 }
 
