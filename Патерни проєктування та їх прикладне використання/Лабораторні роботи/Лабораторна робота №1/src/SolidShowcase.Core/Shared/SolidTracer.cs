@@ -1,25 +1,5 @@
 namespace SolidShowcase.Core;
 
-public enum SolidPrinciple
-{
-    S,
-    O,
-    L,
-    I,
-    D
-}
-
-public sealed record SolidTraceStep(
-    int Sequence,
-    string Module,
-    string Action,
-    string Location,
-    SolidPrinciple Principle,
-    string PrincipleName,
-    string Explanation,
-    string Code,
-    int HighlightedLine);
-
 public sealed class SolidTracer
 {
     private readonly List<SolidTraceStep> _steps = [];
@@ -50,9 +30,3 @@ public sealed class SolidTracer
             highlightedLine));
     }
 }
-
-public sealed record DemoResult(string Title, IReadOnlyList<string> Lines);
-
-public sealed record DemoModule(string Id, string Number, string Title, string Subtitle);
-
-public sealed record DemoAction(string Id, string Label, SolidPrinciple Principle, string Hint);

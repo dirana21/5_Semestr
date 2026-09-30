@@ -31,11 +31,25 @@
 
 ```text
 SolidShowcase.sln
-├── src/SolidShowcase.Core   спільна бізнес логіка та трасування
-├── src/SolidShowcase.Wpf    основний Windows інтерфейс
-├── src/SolidShowcase.Web    браузерна демонстрація
+├── src/SolidShowcase.Core
+│   ├── DataImport
+│   │   ├── Contracts, Models, Parsers, Readers
+│   │   └── Repositories, Reporting, Services, Validation
+│   ├── Library
+│   │   ├── Contracts, Models, Factories, Repositories
+│   │   └── Search, Services
+│   ├── MotorPool
+│   │   ├── Contracts, Models, Repositories
+│   │   └── Strategies, Services
+│   ├── Demo
+│   └── Shared
+├── src/SolidShowcase.Wpf     основний Windows інтерфейс
+├── src/SolidShowcase.Web     браузерна демонстрація
 └── tests/SolidShowcase.Tests модульні тести
 ```
+
+У ядрі діє правило **один тип — один файл**: кожний інтерфейс, клас,
+запис і перелік зберігається окремо. Назва файла збігається з назвою типу.
 
 Докладне зіставлення принципів із класами наведено у [документі про архітектуру](docs/SOLID.md).
 
