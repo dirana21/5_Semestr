@@ -1,0 +1,478 @@
+{
+  "ok": true,
+  "database": "nosql_lab1_variant5",
+  "queryCount": 25,
+  "queries": [
+    {
+      "number": 1,
+      "title": "Дисципліни п'ятого семестру",
+      "category": "$eq",
+      "collection": "disciplines",
+      "filter": {
+        "semester": 5
+      },
+      "matched": 10,
+      "sampleIds": [
+        "course-01",
+        "course-02",
+        "course-03"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Дисципліни з кількістю кредитів понад три",
+      "category": "$gt",
+      "collection": "disciplines",
+      "filter": {
+        "credits": {
+          "$gt": 3
+        }
+      },
+      "matched": 7,
+      "sampleIds": [
+        "course-01",
+        "course-02",
+        "course-03"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Дисципліни щонайменше з чотирма кредитами",
+      "category": "$gte",
+      "collection": "disciplines",
+      "filter": {
+        "credits": {
+          "$gte": 4
+        }
+      },
+      "matched": 7,
+      "sampleIds": [
+        "course-01",
+        "course-02",
+        "course-03"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Дисципліни з кількістю кредитів менше чотирьох",
+      "category": "$lt",
+      "collection": "disciplines",
+      "filter": {
+        "credits": {
+          "$lt": 4
+        }
+      },
+      "matched": 3,
+      "sampleIds": [
+        "course-07",
+        "course-08",
+        "course-09"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Лабораторні роботи з номером не більше одного",
+      "category": "$lte",
+      "collection": "laboratory_works",
+      "filter": {
+        "number": {
+          "$lte": 1
+        }
+      },
+      "matched": 8,
+      "sampleIds": [
+        "lab-01",
+        "lab-02",
+        "lab-04"
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Дисципліни, код яких відрізняється від NOSQL-05",
+      "category": "$ne",
+      "collection": "disciplines",
+      "filter": {
+        "code": {
+          "$ne": "NOSQL-05"
+        }
+      },
+      "matched": 9,
+      "sampleIds": [
+        "course-02",
+        "course-03",
+        "course-04"
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Дисципліни з вибраного переліку кодів",
+      "category": "$in",
+      "collection": "disciplines",
+      "filter": {
+        "code": {
+          "$in": [
+            "NOSQL-05",
+            "PY-05",
+            "SEC-05"
+          ]
+        }
+      },
+      "matched": 3,
+      "sampleIds": [
+        "course-01",
+        "course-02",
+        "course-03"
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Лабораторні без варіантів 1 і 12",
+      "category": "$nin",
+      "collection": "laboratory_works",
+      "filter": {
+        "variant": {
+          "$nin": [
+            1,
+            12
+          ]
+        }
+      },
+      "matched": 4,
+      "sampleIds": [
+        "lab-01",
+        "lab-08",
+        "lab-09"
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Лабораторні варіанта 5 у запланованому стані",
+      "category": "$and",
+      "collection": "laboratory_works",
+      "filter": {
+        "$and": [
+          {
+            "variant": 5
+          },
+          {
+            "status": "заплановано"
+          }
+        ]
+      },
+      "matched": 2,
+      "sampleIds": [
+        "lab-09",
+        "lab-10"
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Завершені або заплановані лабораторні",
+      "category": "$or",
+      "collection": "laboratory_works",
+      "filter": {
+        "$or": [
+          {
+            "status": "завершено"
+          },
+          {
+            "status": "заплановано"
+          }
+        ]
+      },
+      "matched": 9,
+      "sampleIds": [
+        "lab-02",
+        "lab-03",
+        "lab-04"
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Лабораторні, які не є запланованими та не мають варіант 1",
+      "category": "$nor",
+      "collection": "laboratory_works",
+      "filter": {
+        "$nor": [
+          {
+            "status": "заплановано"
+          },
+          {
+            "variant": 1
+          }
+        ]
+      },
+      "matched": 6,
+      "sampleIds": [
+        "lab-01",
+        "lab-04",
+        "lab-05"
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Студенти, ім'я яких не починається зі слова Студент",
+      "category": "$not",
+      "collection": "students",
+      "filter": {
+        "fullName": {
+          "$not": {
+            "$regex": "^Студент"
+          }
+        }
+      },
+      "matched": 1,
+      "sampleIds": [
+        "student-01"
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Дисципліна NoSQL за регулярним виразом",
+      "category": "$regex",
+      "collection": "disciplines",
+      "filter": {
+        "name": {
+          "$regex": "^NoSQL",
+          "$options": "i"
+        }
+      },
+      "matched": 1,
+      "sampleIds": [
+        "course-01"
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Лабораторні, назва яких містить слово шифр",
+      "category": "$regex",
+      "collection": "laboratory_works",
+      "filter": {
+        "title": {
+          "$regex": "шифр",
+          "$options": "i"
+        }
+      },
+      "matched": 2,
+      "sampleIds": [
+        "lab-04",
+        "lab-05"
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Дисципліни викладача teacher-01",
+      "category": "вкладене поле",
+      "collection": "disciplines",
+      "filter": {
+        "curator.teacherId": "teacher-01"
+      },
+      "matched": 3,
+      "sampleIds": [
+        "course-01",
+        "course-02",
+        "course-03"
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Дисципліни з варіантом 12 у джерелі",
+      "category": "вкладене поле",
+      "collection": "disciplines",
+      "filter": {
+        "source.variant": 12
+      },
+      "matched": 3,
+      "sampleIds": [
+        "course-03",
+        "course-04",
+        "course-05"
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Власник репозиторію портфоліо",
+      "category": "вкладене поле",
+      "collection": "students",
+      "filter": {
+        "portfolio.owner": true
+      },
+      "matched": 1,
+      "sampleIds": [
+        "student-01"
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Завдання з вимогою щонайменше семи колекцій",
+      "category": "вкладене поле",
+      "collection": "assignments",
+      "filter": {
+        "requirements.minCollections": {
+          "$gte": 7
+        }
+      },
+      "matched": 1,
+      "sampleIds": [
+        "assignment-01"
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Подання до репозиторію dirana21",
+      "category": "вкладене поле",
+      "collection": "submissions",
+      "filter": {
+        "repository.owner": "dirana21"
+      },
+      "matched": 10,
+      "sampleIds": [
+        "submission-01",
+        "submission-02",
+        "submission-03"
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Лабораторні, у масиві tools яких є MongoDB",
+      "category": "масив",
+      "collection": "laboratory_works",
+      "filter": {
+        "tools": "MongoDB"
+      },
+      "matched": 1,
+      "sampleIds": [
+        "lab-01"
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Студент із навичками Python і MongoDB",
+      "category": "$all",
+      "collection": "students",
+      "filter": {
+        "skills": {
+          "$all": [
+            "Python",
+            "MongoDB"
+          ]
+        }
+      },
+      "matched": 1,
+      "sampleIds": [
+        "student-01"
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Викладач із трьома дисциплінами",
+      "category": "$size",
+      "collection": "teachers",
+      "filter": {
+        "disciplines": {
+          "$size": 3
+        }
+      },
+      "matched": 1,
+      "sampleIds": [
+        "teacher-01"
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Завдання з методом, назва якого починається з insert",
+      "category": "$elemMatch",
+      "collection": "assignments",
+      "filter": {
+        "requirements.requiredMethods": {
+          "$elemMatch": {
+            "$regex": "^insert"
+          }
+        }
+      },
+      "matched": 1,
+      "sampleIds": [
+        "assignment-01"
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Завершені лабораторні з Python у переліку інструментів",
+      "category": "$and + масив",
+      "collection": "laboratory_works",
+      "filter": {
+        "$and": [
+          {
+            "status": "завершено"
+          },
+          {
+            "tools": {
+              "$in": [
+                "Python"
+              ]
+            }
+          }
+        ]
+      },
+      "matched": 5,
+      "sampleIds": [
+        "lab-02",
+        "lab-03",
+        "lab-04"
+      ]
+    },
+    {
+      "number": 25,
+      "title": "Оцінювання без виставленого бала, що очікує перевірки",
+      "category": "$and + null",
+      "collection": "grades",
+      "filter": {
+        "$and": [
+          {
+            "score": null
+          },
+          {
+            "status": "очікує перевірки"
+          }
+        ]
+      },
+      "matched": 10,
+      "sampleIds": [
+        "grade-01",
+        "grade-02",
+        "grade-03"
+      ]
+    }
+  ],
+  "indexAnalysis": {
+    "collection": "laboratory_works",
+    "filter": {
+      "variant": 5
+    },
+    "index": {
+      "name": "variant_1_lab2",
+      "keys": {
+        "variant": 1
+      }
+    },
+    "before": {
+      "stages": [
+        "COLLSCAN"
+      ],
+      "executionSuccess": true,
+      "nReturned": 4,
+      "totalKeysExamined": 0,
+      "totalDocsExamined": 10
+    },
+    "after": {
+      "stages": [
+        "FETCH",
+        "IXSCAN"
+      ],
+      "executionSuccess": true,
+      "nReturned": 4,
+      "totalKeysExamined": 4,
+      "totalDocsExamined": 4
+    }
+  }
+}
