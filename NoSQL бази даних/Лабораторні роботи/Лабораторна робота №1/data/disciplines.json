@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "course-01",
+    "code": "NOSQL-05",
+    "name": "NoSQL бази даних",
+    "semester": 5,
+    "credits": 4,
+    "format": "лабораторні та лекції",
+    "technologies": ["MongoDB", "MongoDB Compass", "mongosh"],
+    "curator": {"teacherId": "teacher-01", "name": "Андреєв П. І."},
+    "source": {"repositoryFolder": "NoSQL бази даних", "variant": 5}
+  },
+  {
+    "_id": "course-02",
+    "code": "PY-05",
+    "name": "Python основи",
+    "semester": 5,
+    "credits": 4,
+    "format": "лабораторні та лекції",
+    "technologies": ["Python", "pytest", "PyCharm"],
+    "curator": {"teacherId": "teacher-01", "name": "Андреєв П. І."},
+    "source": {"repositoryFolder": "Python основи", "variant": 1}
+  },
+  {
+    "_id": "course-03",
+    "code": "SEC-05",
+    "name": "Технології захисту інформації",
+    "semester": 5,
+    "credits": 4,
+    "format": "лабораторні та лекції",
+    "technologies": ["Python", "криптографія", "pytest"],
+    "curator": {"teacherId": "teacher-01", "name": "Андреєв П. І."},
+    "source": {"repositoryFolder": "Технології захисту інформації", "variant": 12}
+  },
+  {
+    "_id": "course-04",
+    "code": "DMT-05",
+    "name": "Теорія прийняття рішень",
+    "semester": 5,
+    "credits": 4,
+    "format": "лабораторні та лекції",
+    "technologies": ["C#", ".NET", "xUnit"],
+    "curator": {"teacherId": "teacher-02", "name": "Рилова Н. В."},
+    "source": {"repositoryFolder": "Теорія прийняття рішень", "variant": 12}
+  },
+  {
+    "_id": "course-05",
+    "code": "OR-05",
+    "name": "Дослідження операцій",
+    "semester": 5,
+    "credits": 4,
+    "format": "лабораторні та лекції",
+    "technologies": ["Python", "лінійне програмування", "Matplotlib"],
+    "curator": {"teacherId": "teacher-03", "name": "Викладач кафедри 03"},
+    "source": {"repositoryFolder": "Дослідження операцій", "variant": 12}
+  },
+  {
+    "_id": "course-06",
+    "code": "PAT-05",
+    "name": "Патерни проєктування та їх прикладне використання",
+    "semester": 5,
+    "credits": 4,
+    "format": "лабораторні та лекції",
+    "technologies": ["C#", "WPF", "SOLID"],
+    "curator": {"teacherId": "teacher-04", "name": "Викладач кафедри 04"},
+    "source": {"repositoryFolder": "Патерни проєктування та їх прикладне використання", "variant": 5}
+  },
+  {
+    "_id": "course-07",
+    "code": "DB-05",
+    "name": "Проєктування баз даних",
+    "semester": 5,
+    "credits": 3,
+    "format": "практичні та самостійна робота",
+    "technologies": ["SQL", "ER-моделювання", "нормалізація"],
+    "curator": {"teacherId": "teacher-05", "name": "Викладач кафедри 05"},
+    "source": {"repositoryFolder": "навчальний набір", "variant": 5}
+  },
+  {
+    "_id": "course-08",
+    "code": "WEB-05",
+    "name": "Вебтехнології",
+    "semester": 5,
+    "credits": 3,
+    "format": "лабораторні та проєкт",
+    "technologies": ["HTML", "CSS", "JavaScript"],
+    "curator": {"teacherId": "teacher-06", "name": "Викладач кафедри 06"},
+    "source": {"repositoryFolder": "навчальний набір", "variant": 5}
+  },
+  {
+    "_id": "course-09",
+    "code": "NET-05",
+    "name": "Комп'ютерні мережі",
+    "semester": 5,
+    "credits": 3,
+    "format": "лабораторні та лекції",
+    "technologies": ["TCP/IP", "маршрутизація", "Wireshark"],
+    "curator": {"teacherId": "teacher-07", "name": "Викладач кафедри 07"},
+    "source": {"repositoryFolder": "навчальний набір", "variant": 5}
+  },
+  {
+    "_id": "course-10",
+    "code": "SE-05",
+    "name": "Програмна інженерія",
+    "semester": 5,
+    "credits": 4,
+    "format": "лабораторні та командний проєкт",
+    "technologies": ["Git", "GitHub", "CI"],
+    "curator": {"teacherId": "teacher-08", "name": "Викладач кафедри 08"},
+    "source": {"repositoryFolder": "навчальний набір", "variant": 5}
+  }
+]
