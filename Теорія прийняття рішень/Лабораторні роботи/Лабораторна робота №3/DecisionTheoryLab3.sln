@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionTheoryLab3", "DecisionTheoryLab3\DecisionTheoryLab3.csproj", "{1A8C83D5-2B6D-47DA-9667-7808AF2844F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionTheoryLab3.Tests", "DecisionTheoryLab3.Tests\DecisionTheoryLab3.Tests.csproj", "{BE5587D9-EA37-4A86-8489-1202A1AD88C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A8C83D5-2B6D-47DA-9667-7808AF2844F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A8C83D5-2B6D-47DA-9667-7808AF2844F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A8C83D5-2B6D-47DA-9667-7808AF2844F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A8C83D5-2B6D-47DA-9667-7808AF2844F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE5587D9-EA37-4A86-8489-1202A1AD88C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE5587D9-EA37-4A86-8489-1202A1AD88C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE5587D9-EA37-4A86-8489-1202A1AD88C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE5587D9-EA37-4A86-8489-1202A1AD88C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+expert,total_distance,total_squared_distance,is_kemeny_median,is_kemeny_mean
+1,22,84,false,false
+2,22,84,false,false
+3,22,84,false,false
+4,18,52,true,true
+5,30,116,false,false
+6,34,164,false,false
+7,18,52,true,true
+8,18,52,true,true
+9,34,148,false,false
+10,50,292,false,false
