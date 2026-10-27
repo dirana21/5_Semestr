@@ -10,3 +10,6 @@ bin/
 obj/
 .vs/
 qa/
+
+# Локальні PDF-звіти
+**/output/pdf/
