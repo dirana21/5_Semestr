@@ -1,0 +1,13 @@
+scale,item,type,priority,consistency_ratio,is_best
+3,K1,criterion,0.539615,0.007933,false
+3,K2,criterion,0.163424,0.007933,false
+3,K3,criterion,0.296961,0.007933,false
+3,Водоканал,alternative,0.336617,,false
+3,Центр,alternative,0.296961,,false
+3,Молодіжне,alternative,0.366422,,true
+9,K1,criterion,0.636986,0.033199,false
+9,K2,criterion,0.104729,0.033199,false
+9,K3,criterion,0.258285,0.033199,false
+9,Водоканал,alternative,0.297946,,false
+9,Центр,alternative,0.258285,,false
+9,Молодіжне,alternative,0.443769,,true
