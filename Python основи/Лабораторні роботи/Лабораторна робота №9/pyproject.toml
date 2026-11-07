@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "levchenko-python-toolkit"
+version = "1.0.0"
+description = "Навчальний пакет з матеріалами лабораторних робіт з Python"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  {name = "Левченко Д. В."}
+]
+license = "MIT"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
