@@ -129,8 +129,8 @@ $$
 Необхідна кількість маршрутів:
 
 $$
-N=\left\lceil\frac{Q_{\Sigma}}{q}\right\rceil
-=\left\lceil\frac{223}{100}\right\rceil=3.
+N=\lceil\frac{Q_{\Sigma}}{q}\rceil
+=\lceil\frac{223}{100}\rceil=3.
 $$
 
 Отже, транспортний засіб вантажопідйомністю 100 кг виконає три кільцеві рейси.
