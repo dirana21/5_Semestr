@@ -22,6 +22,8 @@
 
 Сценарій перевіряє, що кожен запит повертає хоча б один документ. Результати останнього успішного запуску збережено у [`results/lab2_results.json`](./results/lab2_results.json).
 
+Повний звіт із титульною сторінкою, описом виконання, скриншотами та відповідями на контрольні питання: [`Звіт_ЛР2_Левченко.docx`](./Звіт_ЛР2_Левченко.docx).
+
 ## Аналіз індексу
 
 Для запиту до `laboratory_works` за полем `variant` виконано `explain()` до і після створення індексу `variant_1_lab2`.
@@ -37,12 +39,18 @@
 
 ```text
 Лабораторна робота №2/
+├── screenshots/
+│   ├── 01-variant5-filter.png
+│   ├── 02-indexes.png
+│   ├── 03-pycharm-queries.png
+│   └── 04-pycharm-results.png
 ├── results/
 │   └── lab2_results.json
 ├── scripts/
 │   └── lab2_queries.py
 ├── README.md
-└── requirements.txt
+├── requirements.txt
+└── Звіт_ЛР2_Левченко.docx
 ```
 
 ## Запуск
