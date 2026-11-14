@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ЛР3: агрегація та оновлення",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/lab3_aggregation_updates.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--output",
+        "${workspaceFolder}/results/lab3_results.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,525 @@
+{
+  "ok": true,
+  "database": "nosql_lab1_variant5",
+  "variant": 5,
+  "aggregationCount": 5,
+  "aggregationCoverage": {
+    "stages": [
+      "$addFields",
+      "$count",
+      "$group",
+      "$limit",
+      "$lookup",
+      "$match",
+      "$project",
+      "$skip",
+      "$sort",
+      "$unwind"
+    ],
+    "functions": [
+      "$avg",
+      "$first",
+      "$last",
+      "$max",
+      "$min",
+      "$sum"
+    ]
+  },
+  "aggregations": [
+    {
+      "name": "Статуси лабораторних робіт",
+      "collection": "laboratory_works",
+      "pipeline": [
+        {
+          "$match": {
+            "number": {
+              "$gte": 1
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": "$status",
+            "count": {
+              "$sum": 1
+            },
+            "averageNumber": {
+              "$avg": "$number"
+            },
+            "minimumNumber": {
+              "$min": "$number"
+            },
+            "maximumNumber": {
+              "$max": "$number"
+            }
+          }
+        },
+        {
+          "$sort": {
+            "count": -1,
+            "_id": 1
+          }
+        },
+        {
+          "$project": {
+            "_id": 0,
+            "status": "$_id",
+            "count": 1,
+            "averageNumber": {
+              "$round": [
+                "$averageNumber",
+                2
+              ]
+            },
+            "minimumNumber": 1,
+            "maximumNumber": 1
+          }
+        }
+      ],
+      "resultCount": 3,
+      "documents": [
+        {
+          "count": 7,
+          "minimumNumber": 1,
+          "maximumNumber": 2,
+          "status": "завершено",
+          "averageNumber": 1.29
+        },
+        {
+          "count": 2,
+          "minimumNumber": 1,
+          "maximumNumber": 1,
+          "status": "заплановано",
+          "averageNumber": 1.0
+        },
+        {
+          "count": 1,
+          "minimumNumber": 1,
+          "maximumNumber": 1,
+          "status": "виконується",
+          "averageNumber": 1.0
+        }
+      ]
+    },
+    {
+      "name": "Навчальне навантаження викладачів",
+      "collection": "disciplines",
+      "pipeline": [
+        {
+          "$lookup": {
+            "from": "laboratory_works",
+            "localField": "_id",
+            "foreignField": "courseId",
+            "as": "laboratoryWorks"
+          }
+        },
+        {
+          "$unwind": "$laboratoryWorks"
+        },
+        {
+          "$group": {
+            "_id": "$curator.teacherId",
+            "teacher": {
+              "$first": "$curator.name"
+            },
+            "firstCourse": {
+              "$first": "$name"
+            },
+            "lastCourse": {
+              "$last": "$name"
+            },
+            "laboratoryCount": {
+              "$sum": 1
+            },
+            "averageCredits": {
+              "$avg": "$credits"
+            },
+            "minimumVariant": {
+              "$min": "$laboratoryWorks.variant"
+            },
+            "maximumVariant": {
+              "$max": "$laboratoryWorks.variant"
+            }
+          }
+        },
+        {
+          "$sort": {
+            "laboratoryCount": -1,
+            "_id": 1
+          }
+        },
+        {
+          "$project": {
+            "_id": 0,
+            "teacherId": "$_id",
+            "teacher": 1,
+            "firstCourse": 1,
+            "lastCourse": 1,
+            "laboratoryCount": 1,
+            "averageCredits": {
+              "$round": [
+                "$averageCredits",
+                2
+              ]
+            },
+            "minimumVariant": 1,
+            "maximumVariant": 1
+          }
+        }
+      ],
+      "resultCount": 6,
+      "documents": [
+        {
+          "teacher": "Андреєв П. І.",
+          "firstCourse": "Технології захисту інформації",
+          "lastCourse": "NoSQL бази даних",
+          "laboratoryCount": 5,
+          "minimumVariant": 1,
+          "maximumVariant": 12,
+          "teacherId": "teacher-01",
+          "averageCredits": 4.0
+        },
+        {
+          "teacher": "Рилова Н. В.",
+          "firstCourse": "Теорія прийняття рішень",
+          "lastCourse": "Теорія прийняття рішень",
+          "laboratoryCount": 1,
+          "minimumVariant": 12,
+          "maximumVariant": 12,
+          "teacherId": "teacher-02",
+          "averageCredits": 4.0
+        },
+        {
+          "teacher": "Викладач кафедри 03",
+          "firstCourse": "Дослідження операцій",
+          "lastCourse": "Дослідження операцій",
+          "laboratoryCount": 1,
+          "minimumVariant": 12,
+          "maximumVariant": 12,
+          "teacherId": "teacher-03",
+          "averageCredits": 4.0
+        },
+        {
+          "teacher": "Викладач кафедри 04",
+          "firstCourse": "Патерни проєктування та їх прикладне використання",
+          "lastCourse": "Патерни проєктування та їх прикладне використання",
+          "laboratoryCount": 1,
+          "minimumVariant": 5,
+          "maximumVariant": 5,
+          "teacherId": "teacher-04",
+          "averageCredits": 4.0
+        },
+        {
+          "teacher": "Викладач кафедри 05",
+          "firstCourse": "Проєктування баз даних",
+          "lastCourse": "Проєктування баз даних",
+          "laboratoryCount": 1,
+          "minimumVariant": 5,
+          "maximumVariant": 5,
+          "teacherId": "teacher-05",
+          "averageCredits": 3.0
+        },
+        {
+          "teacher": "Викладач кафедри 08",
+          "firstCourse": "Програмна інженерія",
+          "lastCourse": "Програмна інженерія",
+          "laboratoryCount": 1,
+          "minimumVariant": 5,
+          "maximumVariant": 5,
+          "teacherId": "teacher-08",
+          "averageCredits": 4.0
+        }
+      ]
+    },
+    {
+      "name": "Найпоширеніші технології",
+      "collection": "disciplines",
+      "pipeline": [
+        {
+          "$unwind": "$technologies"
+        },
+        {
+          "$group": {
+            "_id": "$technologies",
+            "uses": {
+              "$sum": 1
+            }
+          }
+        },
+        {
+          "$sort": {
+            "uses": -1,
+            "_id": 1
+          }
+        },
+        {
+          "$skip": 0
+        },
+        {
+          "$limit": 10
+        },
+        {
+          "$project": {
+            "_id": 0,
+            "technology": "$_id",
+            "uses": 1
+          }
+        }
+      ],
+      "resultCount": 10,
+      "documents": [
+        {
+          "uses": 3,
+          "technology": "Python"
+        },
+        {
+          "uses": 2,
+          "technology": "C#"
+        },
+        {
+          "uses": 2,
+          "technology": "pytest"
+        },
+        {
+          "uses": 1,
+          "technology": ".NET"
+        },
+        {
+          "uses": 1,
+          "technology": "CI"
+        },
+        {
+          "uses": 1,
+          "technology": "CSS"
+        },
+        {
+          "uses": 1,
+          "technology": "ER-моделювання"
+        },
+        {
+          "uses": 1,
+          "technology": "Git"
+        },
+        {
+          "uses": 1,
+          "technology": "GitHub"
+        },
+        {
+          "uses": 1,
+          "technology": "HTML"
+        }
+      ]
+    },
+    {
+      "name": "Огляд дисциплін п'ятого семестру",
+      "collection": "disciplines",
+      "pipeline": [
+        {
+          "$match": {
+            "semester": 5
+          }
+        },
+        {
+          "$lookup": {
+            "from": "laboratory_works",
+            "localField": "_id",
+            "foreignField": "courseId",
+            "as": "laboratoryWorks"
+          }
+        },
+        {
+          "$addFields": {
+            "laboratoryCount": {
+              "$size": "$laboratoryWorks"
+            },
+            "creditHours": {
+              "$multiply": [
+                "$credits",
+                30
+              ]
+            }
+          }
+        },
+        {
+          "$project": {
+            "_id": 0,
+            "code": 1,
+            "name": 1,
+            "credits": 1,
+            "creditHours": 1,
+            "laboratoryCount": 1
+          }
+        },
+        {
+          "$sort": {
+            "laboratoryCount": -1,
+            "code": 1
+          }
+        },
+        {
+          "$skip": 1
+        },
+        {
+          "$limit": 5
+        }
+      ],
+      "resultCount": 5,
+      "documents": [
+        {
+          "code": "SEC-05",
+          "name": "Технології захисту інформації",
+          "credits": 4,
+          "laboratoryCount": 2,
+          "creditHours": 120
+        },
+        {
+          "code": "DB-05",
+          "name": "Проєктування баз даних",
+          "credits": 3,
+          "laboratoryCount": 1,
+          "creditHours": 90
+        },
+        {
+          "code": "DMT-05",
+          "name": "Теорія прийняття рішень",
+          "credits": 4,
+          "laboratoryCount": 1,
+          "creditHours": 120
+        },
+        {
+          "code": "NOSQL-05",
+          "name": "NoSQL бази даних",
+          "credits": 4,
+          "laboratoryCount": 1,
+          "creditHours": 120
+        },
+        {
+          "code": "OR-05",
+          "name": "Дослідження операцій",
+          "credits": 4,
+          "laboratoryCount": 1,
+          "creditHours": 120
+        }
+      ]
+    },
+    {
+      "name": "Кількість робіт варіанта 5",
+      "collection": "laboratory_works",
+      "pipeline": [
+        {
+          "$match": {
+            "variant": 5
+          }
+        },
+        {
+          "$count": "variant5Count"
+        }
+      ],
+      "resultCount": 1,
+      "documents": [
+        {
+          "variant5Count": 4
+        }
+      ]
+    }
+  ],
+  "updateOperationCount": 7,
+  "updateOperations": [
+    {
+      "name": "Встановлення стану та варіанта",
+      "method": "update_one",
+      "operator": "$set",
+      "matched": 1,
+      "modified": 1,
+      "upsertedId": null
+    },
+    {
+      "name": "Перерахунок балів і кредитів",
+      "method": "update_many",
+      "operator": "$inc + $mul",
+      "matched": 3,
+      "modified": 3,
+      "upsertedId": null
+    },
+    {
+      "name": "Видалення тимчасової примітки",
+      "method": "update_one",
+      "operator": "$unset",
+      "matched": 1,
+      "modified": 1,
+      "upsertedId": null
+    },
+    {
+      "name": "Перейменування поля стану",
+      "method": "update_one",
+      "operator": "$rename",
+      "matched": 1,
+      "modified": 1,
+      "upsertedId": null
+    },
+    {
+      "name": "Додавання елемента масиву",
+      "method": "update_one",
+      "operator": "$push",
+      "matched": 1,
+      "modified": 1,
+      "upsertedId": null
+    },
+    {
+      "name": "Видалення першого елемента масиву",
+      "method": "update_one",
+      "operator": "$pop",
+      "matched": 1,
+      "modified": 1,
+      "upsertedId": null
+    },
+    {
+      "name": "Повна заміна документа",
+      "method": "replace_one",
+      "operator": "replacement",
+      "matched": 1,
+      "modified": 1,
+      "upsertedId": null
+    }
+  ],
+  "finalSandboxDocuments": [
+    {
+      "_id": "lab3-student-01",
+      "labMarker": "nosql-lab3-v5",
+      "name": "Левченко Д. В.",
+      "score": 75,
+      "credits": 6.0,
+      "tags": [
+        "python",
+        "mongodb",
+        "visual-studio-code"
+      ],
+      "variant": 5,
+      "state": "active"
+    },
+    {
+      "_id": "lab3-student-02",
+      "labMarker": "nosql-lab3-v5",
+      "name": "Student 02",
+      "status": "new",
+      "score": 70,
+      "credits": 4.5,
+      "tags": [
+        "aggregation"
+      ],
+      "note": "temporary"
+    },
+    {
+      "_id": "lab3-student-03",
+      "labMarker": "nosql-lab3-v5",
+      "name": "Student 03 replaced",
+      "state": "archived",
+      "score": 100,
+      "credits": 6,
+      "tags": [
+        "replacement"
+      ],
+      "variant": 5
+    }
+  ]
+}
