@@ -1,0 +1,121 @@
+{
+  "ok": true,
+  "laboratoryWork": 5,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "mongodb": {
+    "uri": "mongodb://127.0.0.1:27017",
+    "database": "nosql_lab1_variant5",
+    "collection": "laboratory_works",
+    "documentCount": 10,
+    "ping": true
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "version": "3.0.504",
+    "ping": true,
+    "cacheTtlSeconds": 300
+  },
+  "removedPreviousKeys": 5,
+  "checks": {
+    "mongoConnected": true,
+    "redisConnected": true,
+    "firstReadFromMongo": true,
+    "secondReadFromRedis": true,
+    "documentsEqual": true,
+    "ttlConfigured": true,
+    "recentListLimited": true,
+    "toolSetCreated": true,
+    "sortedSetCreated": true
+  },
+  "cacheAside": {
+    "key": "lab5:lab:lab-01",
+    "firstRead": {
+      "source": "mongodb",
+      "elapsedMs": 0.7038
+    },
+    "secondRead": {
+      "source": "redis",
+      "elapsedMs": 0.1973
+    },
+    "ttlRemainingSeconds": 300,
+    "metrics": {
+      "misses": 1,
+      "hits": 1
+    },
+    "document": {
+      "_id": "lab-01",
+      "labMarker": "nosql-lab1-v5",
+      "courseId": "course-01",
+      "number": 1,
+      "variant": 5,
+      "title": "Створення документної бази даних MongoDB",
+      "tools": [
+        "MongoDB",
+        "Compass",
+        "mongoimport"
+      ],
+      "status": "виконується"
+    }
+  },
+  "structures": {
+    "recentLabCount": 5,
+    "uniqueToolCount": 15,
+    "sortedLabCount": 10,
+    "pipelineCommandCount": 11,
+    "recentLabIds": [
+      "lab-03",
+      "lab-05",
+      "lab-01",
+      "lab-02",
+      "lab-04"
+    ],
+    "tools": [
+      ".NET",
+      "C#",
+      "Compass",
+      "ER-модель",
+      "Git",
+      "GitHub Actions",
+      "Matplotlib",
+      "MongoDB",
+      "PyCharm",
+      "Python",
+      "SQL",
+      "WPF",
+      "mongoimport",
+      "pytest",
+      "xUnit"
+    ],
+    "topFiveLabOrder": [
+      {
+        "id": "lab-05",
+        "number": 2.0
+      },
+      {
+        "id": "lab-03",
+        "number": 2.0
+      },
+      {
+        "id": "lab-10",
+        "number": 1.0
+      },
+      {
+        "id": "lab-09",
+        "number": 1.0
+      },
+      {
+        "id": "lab-08",
+        "number": 1.0
+      }
+    ]
+  },
+  "benchmark": {
+    "iterations": 100,
+    "mongoMedianMs": 0.2689,
+    "redisMedianMs": 0.0952,
+    "speedup": 2.83
+  }
+}
