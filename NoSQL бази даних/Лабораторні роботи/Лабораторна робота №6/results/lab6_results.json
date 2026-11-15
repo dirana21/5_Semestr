@@ -1,0 +1,90 @@
+{
+  "ok": true,
+  "laboratoryWork": 6,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "mongodb": {
+    "uri": "mongodb://127.0.0.1:27017",
+    "database": "nosql_lab1_variant5",
+    "sourceCollection": "laboratory_works",
+    "demoCollection": "lab6_cache_management",
+    "sourceDocumentId": "lab-01",
+    "demoDocument": {
+      "_id": "lab6-demo-variant5",
+      "variant": 5,
+      "sourceLabId": "lab-01",
+      "title": "Створення документної бази даних MongoDB",
+      "status": "активний",
+      "cacheMode": "write-through",
+      "cacheTtlSeconds": 300,
+      "student": "Левченко Д. В.",
+      "updatedAt": "2026-11-15T12:51:06"
+    },
+    "ping": true
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "version": "3.0.504",
+    "ping": true,
+    "maxmemoryPolicy": "noeviction",
+    "recommendedCachePolicy": "allkeys-lru"
+  },
+  "removedPreviousKeys": 8,
+  "checks": {
+    "mongoConnected": true,
+    "redisConnected": true,
+    "firstReadFromMongo": true,
+    "secondReadFromRedis": true,
+    "cacheAsideDocumentsEqual": true,
+    "writeThroughSynchronized": true,
+    "cacheTtlConfigured": true,
+    "sessionTtlConfigured": true,
+    "temporaryKeyExpired": true,
+    "transactionAtomicResult": true,
+    "atomicCounterUpdated": true,
+    "evictionPolicyRead": true
+  },
+  "cachePatterns": {
+    "cacheKey": "lab6:cache:lab6-demo-variant5",
+    "cacheTtlSeconds": 300,
+    "firstReadSource": "mongodb",
+    "secondReadSource": "redis",
+    "metrics": {
+      "misses": 1,
+      "hits": 1
+    },
+    "writeThroughStatus": "активний",
+    "writeThroughMode": "write-through"
+  },
+  "lifecycle": {
+    "sessionKey": "lab6:session:variant5",
+    "sessionTtlSeconds": 300,
+    "expiryTestTtlBefore": 1,
+    "expiryTestValueAfter": null,
+    "previewKey": "lab6:temporary:preview",
+    "previewTtlSeconds": 180
+  },
+  "transaction": {
+    "sourceBefore": 1000,
+    "targetBefore": 500,
+    "sourceAfter": 800,
+    "targetAfter": 700,
+    "amount": 200,
+    "summary": {
+      "source": "account1",
+      "target": "account2",
+      "amount": "200",
+      "source_before": "1000",
+      "target_before": "500",
+      "source_after": "800",
+      "target_after": "700"
+    }
+  },
+  "atomicCounter": {
+    "key": "lab6:views:lab6-demo-variant5",
+    "value": 5,
+    "command": "INCRBY 5"
+  }
+}
