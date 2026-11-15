@@ -1,0 +1,89 @@
+{
+  "ok": true,
+  "laboratoryWork": 4,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "connection": {
+    "host": "localhost",
+    "port": 6379,
+    "redisVersion": "3.0.504",
+    "ping": true
+  },
+  "removedPreviousKeys": 25,
+  "checks": {
+    "serverPing": true,
+    "differentTypes": true,
+    "pythonObjectsStored": true,
+    "csvProductsStored": true,
+    "jsonRestored": true
+  },
+  "keyTypes": {
+    "lab4:string:status": "string",
+    "lab4:hash:student": "hash",
+    "lab4:list:tasks": "list",
+    "lab4:set:categories": "set",
+    "lab4:zset:price_rating": "zset"
+  },
+  "pythonObjectKeys": [
+    "lab4:object:501",
+    "lab4:object:502",
+    "lab4:object:503",
+    "lab4:object:504",
+    "lab4:object:505",
+    "lab4:object:506",
+    "lab4:object:507",
+    "lab4:object:508",
+    "lab4:object:509",
+    "lab4:object:510"
+  ],
+  "pipeline": {
+    "source": "data\\products.csv",
+    "commandCount": 10,
+    "successfulCommands": 10,
+    "productKeys": [
+      "product:501",
+      "product:502",
+      "product:503",
+      "product:504",
+      "product:505",
+      "product:506",
+      "product:507",
+      "product:508",
+      "product:509",
+      "product:510"
+    ]
+  },
+  "sampleProduct": {
+    "id": 505,
+    "name": "Energy Core",
+    "category": "Resource",
+    "price": 260,
+    "stock": 40,
+    "rarity": "Rare",
+    "source": "CSV pipeline",
+    "variant": 5
+  },
+  "categories": [
+    "Armor",
+    "Companion",
+    "Consumable",
+    "Module",
+    "Resource",
+    "Weapon"
+  ],
+  "topThreeByPrice": [
+    {
+      "name": "Plasma Blade",
+      "price": 1450.0
+    },
+    {
+      "name": "Combat Drone",
+      "price": 1250.0
+    },
+    {
+      "name": "Thunder Hammer",
+      "price": 1120.0
+    }
+  ]
+}

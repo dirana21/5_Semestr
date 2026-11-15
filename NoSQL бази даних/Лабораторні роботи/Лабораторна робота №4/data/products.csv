@@ -1,0 +1,12 @@
+id,name,category,price,stock,rarity
+501,Plasma Blade,Weapon,1450,12,Legendary
+502,Thunder Hammer,Weapon,1120,9,Epic
+503,Guardian Shield,Armor,780,18,Rare
+504,Scout Boots,Armor,430,26,Uncommon
+505,Energy Core,Resource,260,40,Rare
+506,Nano Repair Kit,Consumable,190,55,Common
+507,Cryo Grenade,Consumable,310,24,Rare
+508,Targeting Module,Module,670,16,Epic
+509,Stealth Field,Module,980,7,Legendary
+510,Combat Drone,Companion,1250,6,Epic
+
