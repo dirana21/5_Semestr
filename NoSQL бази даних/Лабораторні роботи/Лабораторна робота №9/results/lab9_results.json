@@ -1,0 +1,183 @@
+{
+  "lab": 9,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "neo4j": {
+    "uri": "bolt://127.0.0.1:7687",
+    "gdsVersion": "2026.10.2"
+  },
+  "previousGraph": {
+    "laboratoryWorks": 7,
+    "variantFiveWorks": 7
+  },
+  "dataset": {
+    "nodes": 12,
+    "relationships": 20
+  },
+  "projection": {
+    "graphName": "lab9-variant5-communities",
+    "nodeCount": 12,
+    "relationshipCount": 40,
+    "projectMillis": 75
+  },
+  "louvain": {
+    "stats": {
+      "communityCount": 3,
+      "modularity": 0.6502620263370062,
+      "modularities": [
+        0.6502620263370062
+      ],
+      "ranLevels": 1,
+      "computeMillis": 56
+    },
+    "stream": [
+      {
+        "memberId": "alpha-1",
+        "name": "Alpha 1",
+        "expectedTeam": "Alpha",
+        "communityId": 0,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "alpha-2",
+        "name": "Alpha 2",
+        "expectedTeam": "Alpha",
+        "communityId": 0,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "alpha-3",
+        "name": "Alpha 3",
+        "expectedTeam": "Alpha",
+        "communityId": 0,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "alpha-4",
+        "name": "Alpha 4",
+        "expectedTeam": "Alpha",
+        "communityId": 0,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "beta-1",
+        "name": "Beta 1",
+        "expectedTeam": "Beta",
+        "communityId": 1,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "beta-2",
+        "name": "Beta 2",
+        "expectedTeam": "Beta",
+        "communityId": 1,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "beta-3",
+        "name": "Beta 3",
+        "expectedTeam": "Beta",
+        "communityId": 1,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "beta-4",
+        "name": "Beta 4",
+        "expectedTeam": "Beta",
+        "communityId": 1,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "gamma-1",
+        "name": "Gamma 1",
+        "expectedTeam": "Gamma",
+        "communityId": 2,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "gamma-2",
+        "name": "Gamma 2",
+        "expectedTeam": "Gamma",
+        "communityId": 2,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "gamma-3",
+        "name": "Gamma 3",
+        "expectedTeam": "Gamma",
+        "communityId": 2,
+        "intermediateCommunityIds": null
+      },
+      {
+        "memberId": "gamma-4",
+        "name": "Gamma 4",
+        "expectedTeam": "Gamma",
+        "communityId": 2,
+        "intermediateCommunityIds": null
+      }
+    ],
+    "write": {
+      "communityCount": 3.0,
+      "modularity": 0.6502620263370062,
+      "nodePropertiesWritten": 12.0,
+      "writeMillis": 29.0
+    },
+    "persistedCommunities": [
+      {
+        "communityId": 0,
+        "members": 4,
+        "names": [
+          "Alpha 1",
+          "Alpha 2",
+          "Alpha 3",
+          "Alpha 4"
+        ],
+        "expectedTeams": [
+          "Alpha"
+        ]
+      },
+      {
+        "communityId": 1,
+        "members": 4,
+        "names": [
+          "Beta 1",
+          "Beta 2",
+          "Beta 3",
+          "Beta 4"
+        ],
+        "expectedTeams": [
+          "Beta"
+        ]
+      },
+      {
+        "communityId": 2,
+        "members": 4,
+        "names": [
+          "Gamma 1",
+          "Gamma 2",
+          "Gamma 3",
+          "Gamma 4"
+        ],
+        "expectedTeams": [
+          "Gamma"
+        ]
+      }
+    ]
+  },
+  "projectionExistsAfterDrop": false,
+  "checks": {
+    "gdsConnected": true,
+    "previousGraphLoaded": true,
+    "variantFiveLoaded": true,
+    "datasetCreated": true,
+    "relationshipsCreated": true,
+    "projectionCreated": true,
+    "threeCommunitiesFound": true,
+    "allNodesStreamed": true,
+    "propertiesWritten": true,
+    "communitiesPersisted": true,
+    "teamsNotSplit": true,
+    "projectionDropped": true
+  }
+}
