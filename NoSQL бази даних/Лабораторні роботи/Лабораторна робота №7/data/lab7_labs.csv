@@ -1,0 +1,9 @@
+number,title,status,technology,tool
+1,Створення документної бази даних MongoDB,виконано,MongoDB,MongoDB Compass
+2,Запити до документної бази даних,виконано,MongoDB,MongoDB Compass
+3,Агрегація та оновлення документів,виконано,MongoDB,MongoDB Compass
+4,Індекси та оптимізація запитів,виконано,MongoDB,MongoDB Compass
+5,Структури даних Redis,виконано,Redis,Redis Insight
+6,Керування даними та кешування в Redis,виконано,Redis,Redis Insight
+7,Створення графової моделі та імпорт даних,виконано,Neo4j,Neo4j Browser
+

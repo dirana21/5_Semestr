@@ -1,0 +1,283 @@
+{
+  "ok": true,
+  "laboratoryWork": 7,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "generatedAt": "2026-11-16T20:20:49",
+  "neo4j": {
+    "uri": "bolt://127.0.0.1:7687",
+    "database": "neo4j",
+    "nodes": 16,
+    "relationships": 36
+  },
+  "labels": [
+    {
+      "label": "City",
+      "count": 1
+    },
+    {
+      "label": "Course",
+      "count": 1
+    },
+    {
+      "label": "LaboratoryWork",
+      "count": 7
+    },
+    {
+      "label": "Student",
+      "count": 1
+    },
+    {
+      "label": "Technology",
+      "count": 3
+    },
+    {
+      "label": "Tool",
+      "count": 3
+    }
+  ],
+  "relationshipTypes": [
+    {
+      "type": "COMPLETED",
+      "count": 7
+    },
+    {
+      "type": "EXTENDS",
+      "count": 6
+    },
+    {
+      "type": "INCLUDES",
+      "count": 7
+    },
+    {
+      "type": "LOCATED_IN",
+      "count": 1
+    },
+    {
+      "type": "PERFORMED_IN",
+      "count": 7
+    },
+    {
+      "type": "STUDIES",
+      "count": 1
+    },
+    {
+      "type": "USES",
+      "count": 7
+    }
+  ],
+  "laboratories": [
+    {
+      "number": 1,
+      "title": "Створення документної бази даних MongoDB",
+      "technology": "MongoDB"
+    },
+    {
+      "number": 2,
+      "title": "Запити до документної бази даних",
+      "technology": "MongoDB"
+    },
+    {
+      "number": 3,
+      "title": "Агрегація та оновлення документів",
+      "technology": "MongoDB"
+    },
+    {
+      "number": 4,
+      "title": "Індекси та оптимізація запитів",
+      "technology": "MongoDB"
+    },
+    {
+      "number": 5,
+      "title": "Структури даних Redis",
+      "technology": "Redis"
+    },
+    {
+      "number": 6,
+      "title": "Керування даними та кешування в Redis",
+      "technology": "Redis"
+    },
+    {
+      "number": 7,
+      "title": "Створення графової моделі та імпорт даних",
+      "technology": "Neo4j"
+    }
+  ],
+  "extensionPath": {
+    "labNumbers": [
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ],
+    "length": 6
+  },
+  "constraints": [
+    {
+      "name": "course_code_unique",
+      "type": "NODE_PROPERTY_UNIQUENESS",
+      "labelsOrTypes": [
+        "Course"
+      ],
+      "properties": [
+        "code"
+      ]
+    },
+    {
+      "name": "lab_number_unique",
+      "type": "NODE_PROPERTY_UNIQUENESS",
+      "labelsOrTypes": [
+        "LaboratoryWork"
+      ],
+      "properties": [
+        "number"
+      ]
+    },
+    {
+      "name": "student_id_unique",
+      "type": "NODE_PROPERTY_UNIQUENESS",
+      "labelsOrTypes": [
+        "Student"
+      ],
+      "properties": [
+        "studentId"
+      ]
+    },
+    {
+      "name": "technology_name_unique",
+      "type": "NODE_PROPERTY_UNIQUENESS",
+      "labelsOrTypes": [
+        "Technology"
+      ],
+      "properties": [
+        "name"
+      ]
+    },
+    {
+      "name": "tool_name_unique",
+      "type": "NODE_PROPERTY_UNIQUENESS",
+      "labelsOrTypes": [
+        "Tool"
+      ],
+      "properties": [
+        "name"
+      ]
+    }
+  ],
+  "indexes": [
+    {
+      "name": "course_code_unique",
+      "type": "RANGE",
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Course"
+      ],
+      "properties": [
+        "code"
+      ],
+      "state": "ONLINE"
+    },
+    {
+      "name": "index_1b9dcc97",
+      "type": "LOOKUP",
+      "entityType": "RELATIONSHIP",
+      "labelsOrTypes": null,
+      "properties": null,
+      "state": "ONLINE"
+    },
+    {
+      "name": "index_460996c0",
+      "type": "LOOKUP",
+      "entityType": "NODE",
+      "labelsOrTypes": null,
+      "properties": null,
+      "state": "ONLINE"
+    },
+    {
+      "name": "lab_number_unique",
+      "type": "RANGE",
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "LaboratoryWork"
+      ],
+      "properties": [
+        "number"
+      ],
+      "state": "ONLINE"
+    },
+    {
+      "name": "lab_status_idx",
+      "type": "RANGE",
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "LaboratoryWork"
+      ],
+      "properties": [
+        "status"
+      ],
+      "state": "ONLINE"
+    },
+    {
+      "name": "lab_title_idx",
+      "type": "RANGE",
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "LaboratoryWork"
+      ],
+      "properties": [
+        "title"
+      ],
+      "state": "ONLINE"
+    },
+    {
+      "name": "student_id_unique",
+      "type": "RANGE",
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Student"
+      ],
+      "properties": [
+        "studentId"
+      ],
+      "state": "ONLINE"
+    },
+    {
+      "name": "technology_name_unique",
+      "type": "RANGE",
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Technology"
+      ],
+      "properties": [
+        "name"
+      ],
+      "state": "ONLINE"
+    },
+    {
+      "name": "tool_name_unique",
+      "type": "RANGE",
+      "entityType": "NODE",
+      "labelsOrTypes": [
+        "Tool"
+      ],
+      "properties": [
+        "name"
+      ],
+      "state": "ONLINE"
+    }
+  ],
+  "checks": {
+    "neo4jConnected": true,
+    "csvImportedSevenLabs": true,
+    "variantFiveApplied": true,
+    "graphNodeCount": true,
+    "graphRelationshipCount": true,
+    "uniqueConstraintsCreated": true,
+    "searchIndexesOnline": true,
+    "extensionPathComplete": true
+  }
+}
