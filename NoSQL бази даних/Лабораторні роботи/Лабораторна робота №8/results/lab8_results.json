@@ -1,0 +1,444 @@
+{
+  "ok": true,
+  "laboratoryWork": 8,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "generatedAt": "2026-11-16T20:38:12",
+  "neo4j": {
+    "uri": "bolt://127.0.0.1:7687",
+    "database": "neo4j"
+  },
+  "baseGraph": {
+    "laboratoryWorks": 7,
+    "variantFiveLabs": 7
+  },
+  "analysisDataset": {
+    "nodes": 500,
+    "relationships": 500,
+    "targetCode": "sample-0420"
+  },
+  "technologyUsage": [
+    {
+      "technology": "MongoDB",
+      "laboratoryCount": 4
+    },
+    {
+      "technology": "Redis",
+      "laboratoryCount": 2
+    },
+    {
+      "technology": "Neo4j",
+      "laboratoryCount": 1
+    }
+  ],
+  "nodeDegrees": [
+    {
+      "laboratoryNumber": 2,
+      "title": "Запити до документної бази даних",
+      "degree": 78
+    },
+    {
+      "laboratoryNumber": 3,
+      "title": "Агрегація та оновлення документів",
+      "degree": 78
+    },
+    {
+      "laboratoryNumber": 1,
+      "title": "Створення документної бази даних MongoDB",
+      "degree": 77
+    },
+    {
+      "laboratoryNumber": 4,
+      "title": "Індекси та оптимізація запитів",
+      "degree": 77
+    },
+    {
+      "laboratoryNumber": 5,
+      "title": "Структури даних Redis",
+      "degree": 77
+    },
+    {
+      "laboratoryNumber": 6,
+      "title": "Керування даними та кешування в Redis",
+      "degree": 77
+    },
+    {
+      "laboratoryNumber": 7,
+      "title": "Створення графової моделі та імпорт даних",
+      "degree": 76
+    }
+  ],
+  "shortestPath": {
+    "length": 2,
+    "nodes": [
+      "Левченко Д. В.",
+      "Створення графової моделі та імпорт даних",
+      "Neo4j"
+    ],
+    "relationships": [
+      "COMPLETED",
+      "USES"
+    ]
+  },
+  "indexAnalysis": {
+    "index": {
+      "name": "search_sample_code_idx",
+      "state": "ONLINE",
+      "type": "RANGE",
+      "labelsOrTypes": [
+        "SearchSample"
+      ],
+      "properties": [
+        "code"
+      ]
+    },
+    "before": {
+      "profile": {
+        "records": [
+          {
+            "code": "sample-0420",
+            "category": "even",
+            "score": 420
+          }
+        ],
+        "plan": {
+          "operator": "ProduceResults@neo4j",
+          "identifiers": [
+            "category",
+            "code",
+            "sample",
+            "score"
+          ],
+          "arguments": {
+            "GlobalMemory": 64,
+            "planner-impl": "IDP",
+            "Memory": 0,
+            "string-representation": "Cypher 25\r\n\r\nPlanner COST\r\n\r\nRuntime SLOTTED\r\n\r\nRuntime version 2026.10.2\r\n\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+\r\n| Operator         | Id | Details                                                                                      | Estimated Rows | Rows | DB Hits | Memory (Bytes) | Page Cache Hits/Misses |\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+\r\n| +ProduceResults  |  0 | code, category, score                                                                        |             25 |    1 |       0 |              0 |                    0/0 |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+\r\n| +Projection      |  1 | cache[sample.code] AS code, cache[sample.category] AS category, cache[sample.score] AS score |             25 |    1 |       0 |                |                    0/0 |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+\r\n| +CacheProperties |  2 | cache[sample.category], cache[sample.score]                                                  |             25 |    1 |       2 |                |                    0/0 |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+\r\n| +Filter          |  3 | cache[sample.code] = $code                                                                   |             25 |    1 |     500 |                |                    0/0 |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+\r\n| +NodeByLabelScan |  4 | sample:SearchSample                                                                          |            500 |  500 |     501 |                |                    0/0 |\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+\r\n\r\nTotal database accesses: 1003, total allocated memory: 64\r\n",
+            "runtime": "SLOTTED",
+            "runtime-impl": "SLOTTED",
+            "version": "25",
+            "DbHits": 0,
+            "Details": "code, category, score",
+            "planner-version": "2026.10.2",
+            "runtime-version": "2026.10.2",
+            "Id": 0,
+            "EstimatedRows": 25.0,
+            "planner": "COST",
+            "PageCacheMisses": 0,
+            "Rows": 1,
+            "PageCacheHits": 0
+          },
+          "dbHits": 0,
+          "records": 0,
+          "children": [
+            {
+              "operator": "Projection@neo4j",
+              "identifiers": [
+                "category",
+                "code",
+                "sample",
+                "score"
+              ],
+              "arguments": {
+                "Details": "cache[sample.code] AS code, cache[sample.category] AS category, cache[sample.score] AS score",
+                "Id": 1,
+                "PageCacheMisses": 0,
+                "EstimatedRows": 25.0,
+                "DbHits": 0,
+                "Rows": 1,
+                "PageCacheHits": 0
+              },
+              "dbHits": 0,
+              "records": 0,
+              "children": [
+                {
+                  "operator": "CacheProperties@neo4j",
+                  "identifiers": [
+                    "sample"
+                  ],
+                  "arguments": {
+                    "Details": "cache[sample.category], cache[sample.score]",
+                    "Id": 2,
+                    "PageCacheMisses": 0,
+                    "EstimatedRows": 25.0,
+                    "DbHits": 2,
+                    "Rows": 1,
+                    "PageCacheHits": 0
+                  },
+                  "dbHits": 2,
+                  "records": 0,
+                  "children": [
+                    {
+                      "operator": "Filter@neo4j",
+                      "identifiers": [
+                        "sample"
+                      ],
+                      "arguments": {
+                        "Details": "cache[sample.code] = $code",
+                        "Id": 3,
+                        "PageCacheMisses": 0,
+                        "EstimatedRows": 25.0,
+                        "DbHits": 500,
+                        "Rows": 1,
+                        "PageCacheHits": 0
+                      },
+                      "dbHits": 500,
+                      "records": 0,
+                      "children": [
+                        {
+                          "operator": "NodeByLabelScan@neo4j",
+                          "identifiers": [
+                            "sample"
+                          ],
+                          "arguments": {
+                            "Details": "sample:SearchSample",
+                            "Id": 4,
+                            "PageCacheMisses": 0,
+                            "EstimatedRows": 500.0,
+                            "DbHits": 501,
+                            "Rows": 500,
+                            "PageCacheHits": 0
+                          },
+                          "dbHits": 501,
+                          "records": 0,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "operators": [
+          "ProduceResults@neo4j",
+          "Projection@neo4j",
+          "CacheProperties@neo4j",
+          "Filter@neo4j",
+          "NodeByLabelScan@neo4j"
+        ],
+        "totalDbHits": 1003
+      },
+      "benchmark": {
+        "iterations": 120,
+        "medianMs": 2.2561,
+        "averageMs": 2.4454,
+        "minMs": 1.6809,
+        "maxMs": 8.7339
+      }
+    },
+    "after": {
+      "explain": {
+        "plan": {
+          "operator": "ProduceResults@neo4j",
+          "identifiers": [
+            "category",
+            "code",
+            "sample",
+            "score"
+          ],
+          "arguments": {
+            "planner-impl": "IDP",
+            "Details": "code, category, score",
+            "planner-version": "2026.10.2",
+            "string-representation": "Cypher 25\r\n\r\nPlanner COST\r\n\r\nRuntime SLOTTED\r\n\r\nRuntime version 2026.10.2\r\n\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+\r\n| Operator         | Id | Details                                                                                      | Estimated Rows |\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+\r\n| +ProduceResults  |  0 | code, category, score                                                                        |              1 |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+\r\n| +Projection      |  1 | cache[sample.code] AS code, cache[sample.category] AS category, cache[sample.score] AS score |              1 |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+\r\n| +CacheProperties |  2 | cache[sample.category], cache[sample.score]                                                  |              1 |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+\r\n| +NodeIndexSeek   |  3 | RANGE INDEX sample:SearchSample(code) WHERE code = $code, cache[sample.code]                 |              1 |\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+\r\n\r\nTotal database accesses: ?\r\n",
+            "runtime-version": "2026.10.2",
+            "runtime": "SLOTTED",
+            "Id": 0,
+            "runtime-impl": "SLOTTED",
+            "EstimatedRows": 1.0,
+            "planner": "COST",
+            "version": "25"
+          },
+          "dbHits": 0,
+          "records": 0,
+          "children": [
+            {
+              "operator": "Projection@neo4j",
+              "identifiers": [
+                "category",
+                "code",
+                "sample",
+                "score"
+              ],
+              "arguments": {
+                "EstimatedRows": 1.0,
+                "Details": "cache[sample.code] AS code, cache[sample.category] AS category, cache[sample.score] AS score",
+                "Id": 1
+              },
+              "dbHits": 0,
+              "records": 0,
+              "children": [
+                {
+                  "operator": "CacheProperties@neo4j",
+                  "identifiers": [
+                    "sample"
+                  ],
+                  "arguments": {
+                    "EstimatedRows": 1.0,
+                    "Details": "cache[sample.category], cache[sample.score]",
+                    "Id": 2
+                  },
+                  "dbHits": 0,
+                  "records": 0,
+                  "children": [
+                    {
+                      "operator": "NodeIndexSeek@neo4j",
+                      "identifiers": [
+                        "sample"
+                      ],
+                      "arguments": {
+                        "EstimatedRows": 1.0,
+                        "Details": "RANGE INDEX sample:SearchSample(code) WHERE code = $code, cache[sample.code]",
+                        "Id": 3
+                      },
+                      "dbHits": 0,
+                      "records": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "operators": [
+          "ProduceResults@neo4j",
+          "Projection@neo4j",
+          "CacheProperties@neo4j",
+          "NodeIndexSeek@neo4j"
+        ]
+      },
+      "profile": {
+        "records": [
+          {
+            "code": "sample-0420",
+            "category": "even",
+            "score": 420
+          }
+        ],
+        "plan": {
+          "operator": "ProduceResults@neo4j",
+          "identifiers": [
+            "category",
+            "code",
+            "sample",
+            "score"
+          ],
+          "arguments": {
+            "GlobalMemory": 64,
+            "planner-impl": "IDP",
+            "Memory": 0,
+            "string-representation": "Cypher 25\r\n\r\nPlanner COST\r\n\r\nRuntime SLOTTED\r\n\r\nRuntime version 2026.10.2\r\n\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+---------------------------+\r\n| Operator         | Id | Details                                                                                      | Estimated Rows | Rows | DB Hits | Memory (Bytes) | Page Cache Hits/Misses | Indexes Used              |\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+---------------------------+\r\n| +ProduceResults  |  0 | code, category, score                                                                        |              1 |    1 |       0 |              0 |                    0/0 |                           |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+---------------------------+\r\n| +Projection      |  1 | cache[sample.code] AS code, cache[sample.category] AS category, cache[sample.score] AS score |              1 |    1 |       0 |                |                    0/0 |                           |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+---------------------------+\r\n| +CacheProperties |  2 | cache[sample.category], cache[sample.score]                                                  |              1 |    1 |       2 |                |                    0/0 |                           |\r\n| |                +----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+---------------------------+\r\n| +NodeIndexSeek   |  3 | RANGE INDEX sample:SearchSample(code) WHERE code = $code, cache[sample.code]                 |              1 |    1 |       2 |                |                    0/0 | search_sample_code_idx: 1 |\r\n+------------------+----+----------------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+---------------------------+\r\n\r\nTotal database accesses: 4, total allocated memory: 64\r\n",
+            "runtime": "SLOTTED",
+            "runtime-impl": "SLOTTED",
+            "version": "25",
+            "DbHits": 0,
+            "Details": "code, category, score",
+            "planner-version": "2026.10.2",
+            "runtime-version": "2026.10.2",
+            "Id": 0,
+            "EstimatedRows": 1.0,
+            "planner": "COST",
+            "PageCacheMisses": 0,
+            "Rows": 1,
+            "PageCacheHits": 0
+          },
+          "dbHits": 0,
+          "records": 0,
+          "children": [
+            {
+              "operator": "Projection@neo4j",
+              "identifiers": [
+                "category",
+                "code",
+                "sample",
+                "score"
+              ],
+              "arguments": {
+                "Details": "cache[sample.code] AS code, cache[sample.category] AS category, cache[sample.score] AS score",
+                "Id": 1,
+                "PageCacheMisses": 0,
+                "EstimatedRows": 1.0,
+                "DbHits": 0,
+                "Rows": 1,
+                "PageCacheHits": 0
+              },
+              "dbHits": 0,
+              "records": 0,
+              "children": [
+                {
+                  "operator": "CacheProperties@neo4j",
+                  "identifiers": [
+                    "sample"
+                  ],
+                  "arguments": {
+                    "Details": "cache[sample.category], cache[sample.score]",
+                    "Id": 2,
+                    "PageCacheMisses": 0,
+                    "EstimatedRows": 1.0,
+                    "DbHits": 2,
+                    "Rows": 1,
+                    "PageCacheHits": 0
+                  },
+                  "dbHits": 2,
+                  "records": 0,
+                  "children": [
+                    {
+                      "operator": "NodeIndexSeek@neo4j",
+                      "identifiers": [
+                        "sample"
+                      ],
+                      "arguments": {
+                        "Details": "RANGE INDEX sample:SearchSample(code) WHERE code = $code, cache[sample.code]",
+                        "Id": 3,
+                        "UsedIndexes": "search_sample_code_idx: 1",
+                        "PageCacheMisses": 0,
+                        "EstimatedRows": 1.0,
+                        "DbHits": 2,
+                        "Rows": 1,
+                        "PageCacheHits": 0
+                      },
+                      "dbHits": 2,
+                      "records": 0,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "operators": [
+          "ProduceResults@neo4j",
+          "Projection@neo4j",
+          "CacheProperties@neo4j",
+          "NodeIndexSeek@neo4j"
+        ],
+        "totalDbHits": 4
+      },
+      "benchmark": {
+        "iterations": 120,
+        "medianMs": 2.0133,
+        "averageMs": 2.1756,
+        "minMs": 1.3241,
+        "maxMs": 6.5533
+      }
+    }
+  },
+  "checks": {
+    "neo4jConnected": true,
+    "previousGraphLoaded": true,
+    "variantFiveLoaded": true,
+    "analysisDatasetCreated": true,
+    "analysisRelationshipsCreated": true,
+    "searchResultCorrect": true,
+    "beforeUsesLabelScan": true,
+    "afterUsesIndexSeek": true,
+    "indexOnline": true,
+    "indexReducesDbHits": true,
+    "shortestPathFound": true
+  }
+}
