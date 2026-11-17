@@ -1,0 +1,231 @@
+{
+  "lab": 10,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "cassandra": {
+    "host": "127.0.0.1",
+    "port": 9042,
+    "releaseVersion": "5.0.9",
+    "cqlVersion": "3.4.7",
+    "dataCenter": "datacenter1"
+  },
+  "keyspaces": [
+    {
+      "keyspace_name": "lab10_simple_v5",
+      "replication": "{'class': 'org.apache.cassandra.locator.SimpleStrategy', 'replication_factor': '1'}",
+      "durable_writes": true
+    },
+    {
+      "keyspace_name": "lab10_university_v5",
+      "replication": "{'class': 'org.apache.cassandra.locator.NetworkTopologyStrategy', 'datacenter1': '1'}",
+      "durable_writes": true
+    }
+  ],
+  "tables": [
+    "course_enrollments",
+    "sensor_readings",
+    "students"
+  ],
+  "columns": [
+    {
+      "table_name": "course_enrollments",
+      "column_name": "course",
+      "kind": "regular",
+      "position": -1,
+      "type": "text"
+    },
+    {
+      "table_name": "course_enrollments",
+      "column_name": "faculty",
+      "kind": "partition_key",
+      "position": 0,
+      "type": "text"
+    },
+    {
+      "table_name": "course_enrollments",
+      "column_name": "grade",
+      "kind": "regular",
+      "position": -1,
+      "type": "double"
+    },
+    {
+      "table_name": "course_enrollments",
+      "column_name": "group_code",
+      "kind": "partition_key",
+      "position": 1,
+      "type": "text"
+    },
+    {
+      "table_name": "course_enrollments",
+      "column_name": "semester",
+      "kind": "regular",
+      "position": -1,
+      "type": "int"
+    },
+    {
+      "table_name": "course_enrollments",
+      "column_name": "student_id",
+      "kind": "clustering",
+      "position": 0,
+      "type": "uuid"
+    },
+    {
+      "table_name": "sensor_readings",
+      "column_name": "recorded_at",
+      "kind": "clustering",
+      "position": 0,
+      "type": "timestamp"
+    },
+    {
+      "table_name": "sensor_readings",
+      "column_name": "room",
+      "kind": "regular",
+      "position": -1,
+      "type": "text"
+    },
+    {
+      "table_name": "sensor_readings",
+      "column_name": "sensor_id",
+      "kind": "partition_key",
+      "position": 0,
+      "type": "text"
+    },
+    {
+      "table_name": "sensor_readings",
+      "column_name": "temperature",
+      "kind": "regular",
+      "position": -1,
+      "type": "double"
+    },
+    {
+      "table_name": "students",
+      "column_name": "city",
+      "kind": "regular",
+      "position": -1,
+      "type": "text"
+    },
+    {
+      "table_name": "students",
+      "column_name": "email",
+      "kind": "regular",
+      "position": -1,
+      "type": "text"
+    },
+    {
+      "table_name": "students",
+      "column_name": "full_name",
+      "kind": "regular",
+      "position": -1,
+      "type": "text"
+    },
+    {
+      "table_name": "students",
+      "column_name": "student_id",
+      "kind": "partition_key",
+      "position": 0,
+      "type": "uuid"
+    },
+    {
+      "table_name": "students",
+      "column_name": "variant",
+      "kind": "regular",
+      "position": -1,
+      "type": "int"
+    }
+  ],
+  "students": [
+    {
+      "student_id": "50000000-0000-0000-0000-000000000003",
+      "city": "Київ",
+      "email": "koval.o@example.com",
+      "full_name": "Коваль Олег",
+      "variant": 5
+    },
+    {
+      "student_id": "50000000-0000-0000-0000-000000000001",
+      "city": "Кременчук",
+      "email": "levchenko.d@example.com",
+      "full_name": "Левченко Дмитро",
+      "variant": 5
+    },
+    {
+      "student_id": "50000000-0000-0000-0000-000000000004",
+      "city": "Черкаси",
+      "email": "melnyk.a@example.com",
+      "full_name": "Мельник Анна",
+      "variant": 5
+    },
+    {
+      "student_id": "50000000-0000-0000-0000-000000000005",
+      "city": "Дніпро",
+      "email": "shevchenko.m@example.com",
+      "full_name": "Шевченко Максим",
+      "variant": 5
+    },
+    {
+      "student_id": "50000000-0000-0000-0000-000000000002",
+      "city": "Полтава",
+      "email": "bondarenko.i@example.com",
+      "full_name": "Бондаренко Ірина",
+      "variant": 5
+    }
+  ],
+  "sensorReadings": [
+    {
+      "sensor_id": "sensor-v5",
+      "recorded_at": "2026-11-17T11:00:00",
+      "room": "A-101",
+      "temperature": 22.8
+    },
+    {
+      "sensor_id": "sensor-v5",
+      "recorded_at": "2026-11-17T10:00:00",
+      "room": "A-101",
+      "temperature": 22.1
+    },
+    {
+      "sensor_id": "sensor-v5",
+      "recorded_at": "2026-11-17T09:00:00",
+      "room": "A-101",
+      "temperature": 21.5
+    }
+  ],
+  "courseEnrollments": [
+    {
+      "faculty": "FKS",
+      "group_code": "KN-31",
+      "student_id": "50000000-0000-0000-0000-000000000001",
+      "course": "NoSQL бази даних",
+      "grade": 95.0,
+      "semester": 5
+    },
+    {
+      "faculty": "FKS",
+      "group_code": "KN-31",
+      "student_id": "50000000-0000-0000-0000-000000000002",
+      "course": "NoSQL бази даних",
+      "grade": 91.0,
+      "semester": 5
+    }
+  ],
+  "counts": {
+    "students": 5,
+    "sensorReadings": 3,
+    "courseEnrollments": 2
+  },
+  "checks": {
+    "cassandraConnected": true,
+    "cassandraVersion509": true,
+    "simpleKeyspaceCreated": true,
+    "networkKeyspaceCreated": true,
+    "threeTablesCreated": true,
+    "simplePrimaryKey": true,
+    "compoundPrimaryKey": true,
+    "compositePartitionKey": true,
+    "csvImported": true,
+    "variantFiveImported": true,
+    "sensorRowsCreated": true,
+    "enrollmentRowsCreated": true
+  }
+}
