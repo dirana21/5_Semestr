@@ -1,0 +1,2 @@
+example/*.bin binary
+example/*.txt text eol=lf
