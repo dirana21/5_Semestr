@@ -1,0 +1,112 @@
+{
+  "lab": 12,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "connection": {
+    "host": "127.0.0.1",
+    "port": 9042,
+    "keyspace": "lab12_python_v5"
+  },
+  "crud": {
+    "createdEvents": 21,
+    "readReturnedDictionaries": true,
+    "updatedEventTime": "e54cdce0-e293-11f1-a7f5-010101010000",
+    "updatedSource": "Python CRUD v5",
+    "deletedEventTime": "e5abb00f-e293-11f1-8f90-010101010000",
+    "deleteConfirmed": true,
+    "remainingEvents": 20,
+    "historyRows": 10
+  },
+  "sourceModels": [
+    "Cassandra",
+    "MongoDB",
+    "Neo4j",
+    "Python CRUD v5",
+    "Redis"
+  ],
+  "sampleEvents": [
+    {
+      "event_time": "e5a7084b-e293-11f1-8f10-010101010000",
+      "event_type": "cql_query",
+      "source": "Cassandra",
+      "related_lab": 11
+    },
+    {
+      "event_time": "e5a215c8-e293-11f1-8f56-010101010000",
+      "event_type": "cache_hit",
+      "source": "Redis",
+      "related_lab": 6
+    },
+    {
+      "event_time": "e59d6d5a-e293-11f1-8526-010101010000",
+      "event_type": "relationship_open",
+      "source": "Neo4j",
+      "related_lab": 8
+    },
+    {
+      "event_time": "e598c3c6-e293-11f1-83fc-010101010000",
+      "event_type": "document_view",
+      "source": "MongoDB",
+      "related_lab": 3
+    },
+    {
+      "event_time": "e593f463-e293-11f1-bc35-010101010000",
+      "event_type": "cql_query",
+      "source": "Cassandra",
+      "related_lab": 11
+    },
+    {
+      "event_time": "e58f37dd-e293-11f1-8c65-010101010000",
+      "event_type": "cache_hit",
+      "source": "Redis",
+      "related_lab": 6
+    }
+  ],
+  "sampleHistory": [
+    {
+      "changed_at": "e5c83353-e293-11f1-87b1-010101010000",
+      "change_type": "UPDATE",
+      "source_model": "MongoDB"
+    },
+    {
+      "changed_at": "e5c5c174-e293-11f1-a655-010101010000",
+      "change_type": "UPDATE",
+      "source_model": "Redis"
+    },
+    {
+      "changed_at": "e5c36380-e293-11f1-a996-010101010000",
+      "change_type": "UPDATE",
+      "source_model": "Neo4j"
+    },
+    {
+      "changed_at": "e5c118eb-e293-11f1-9b70-010101010000",
+      "change_type": "UPDATE",
+      "source_model": "MongoDB"
+    }
+  ],
+  "validation": {
+    "checks": {
+      "cassandraConnected": true,
+      "cassandraVersion509": true,
+      "twoTablesCreated": true,
+      "createOperation": true,
+      "readOperation": true,
+      "dictionaryRows": true,
+      "updateOperation": true,
+      "deleteOperation": true,
+      "eventPartitionQuery": true,
+      "historyPartitionQuery": true,
+      "previousModelsUsed": true,
+      "connectionClosedByFinally": true
+    },
+    "counts": {
+      "events": 20,
+      "history": 10
+    },
+    "cassandra": {
+      "releaseVersion": "5.0.9",
+      "cqlVersion": "3.4.7"
+    }
+  }
+}
