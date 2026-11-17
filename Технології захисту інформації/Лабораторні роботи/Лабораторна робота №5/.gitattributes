@@ -1,0 +1,3 @@
+example/Coded.txt binary
+example/Source.txt text eol=lf
+example/DeCoded.txt text eol=lf
