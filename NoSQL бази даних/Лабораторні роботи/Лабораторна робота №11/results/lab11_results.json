@@ -1,0 +1,65 @@
+{
+  "lab": 11,
+  "variant": 5,
+  "student": "Левченко Д. В.",
+  "reviewer": "Андреєв П. І.",
+  "cassandra": {
+    "releaseVersion": "5.0.9",
+    "cqlVersion": "3.4.7",
+    "dataCenter": "datacenter1"
+  },
+  "counts": {
+    "users": 25,
+    "orders": 25,
+    "activity": 25
+  },
+  "queryResults": {
+    "fullPartitionKeyRows": 5,
+    "fullCompositeKeyRows": 10,
+    "partialPartitionKeyRows": 15,
+    "withoutPartitionKeyRows": 5,
+    "indexedStatusRows": 10,
+    "orderedDates": [
+      "2026-11-05",
+      "2026-11-04",
+      "2026-11-03",
+      "2026-11-02",
+      "2026-11-01"
+    ]
+  },
+  "tracing": {
+    "traceId": "861754c0-e290-11f1-8967-cd610a43d542",
+    "coordinator": "127.0.0.1",
+    "durationMicros": 1367,
+    "eventCount": 7,
+    "sampleEvents": [
+      "Parsing SELECT * FROM orders_by_user WHERE user_id = 50000000-0000-0000-0000-000000000001 LIMIT 5",
+      "Preparing statement",
+      "Executing single-partition query on orders_by_user",
+      "Acquiring sstable references",
+      "Skipped 0/0 non-slice-intersecting sstables, included 0 due to tombstones",
+      "Merged data from memtables and 0 sstables",
+      "Read 5 live rows and 0 tombstone cells"
+    ]
+  },
+  "indexes": [
+    {
+      "name": "idx_order_status_v5",
+      "kind": "COMPOSITES"
+    }
+  ],
+  "checks": {
+    "cassandraConnected": true,
+    "cassandraVersion509": true,
+    "threeTablesHave25Rows": true,
+    "fullPartitionKeyQuery": true,
+    "fullCompositeKeyQuery": true,
+    "partialPartitionKeyFiltering": true,
+    "withoutPartitionKeyFiltering": true,
+    "clusteringOrderDescending": true,
+    "secondaryIndexCreated": true,
+    "secondaryIndexQuery": true,
+    "queryTracingEnabled": true,
+    "tracedQueryReturnedRows": true
+  }
+}
