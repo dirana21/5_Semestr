@@ -31,6 +31,6 @@ python scripts/lab6_cache_management.py
 
 - `scripts/lab6_cache_management.py` - реалізація TTL, кеш-патернів, транзакції та атомарного лічильника;
 - `results/lab6_results.json` - результат автоматичної перевірки;
-- `screenshots/` - знімки MongoDB Compass і Redis Insight без курсора;
+- `screenshots/` - знімки MongoDB Compass і Redis Insight;
 - `Звіт_ЛР6_Левченко.docx` - звіт про виконання.
 

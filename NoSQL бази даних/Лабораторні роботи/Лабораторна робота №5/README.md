@@ -33,6 +33,6 @@ python scripts/lab5_mongodb_redis_cache.py
 
 - `scripts/lab5_mongodb_redis_cache.py` - кеш-прослойка та перевірки;
 - `results/lab5_results.json` - результат виконання;
-- `screenshots/` - знімки Redis Insight і MongoDB Compass без курсора;
+- `screenshots/` - знімки Redis Insight і MongoDB Compass;
 - `Звіт_ЛР5_Левченко.docx` - звіт про виконання.
 
