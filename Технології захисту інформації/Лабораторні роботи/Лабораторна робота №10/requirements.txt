@@ -1,0 +1,2 @@
+Pillow==12.3.0
+stegano==3.0.0
