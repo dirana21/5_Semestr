@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вісімковий калькулятор · Лабораторна №12</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Python основи / Лабораторна робота №12</p>
+      <h1>Вісімковий калькулятор</h1>
+      <p class="muted">Вебверсія калькулятора на Python CGI · Варіант 2</p>
+    </header>
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title">Вхідні дані</h2>
+      <form action="/cgi-bin/calculate.py" method="get">
+        <div class="fields">
+          <label>Число A
+            <input name="a" inputmode="decimal" maxlength="64" required value="64">
+          </label>
+          <label>Операція
+            <select name="operation">
+              <option value="add">Додавання (+)</option>
+              <option value="subtract">Віднімання (−)</option>
+              <option value="multiply">Множення (×)</option>
+              <option value="divide">Ділення (÷)</option>
+              <option value="root">Квадратний корінь (√)</option>
+            </select>
+          </label>
+          <label>Число B
+            <input name="b" inputmode="decimal" maxlength="64" value="8">
+          </label>
+        </div>
+        <p class="muted hint">Корінь і вісімкове перетворення використовують лише число A.</p>
+        <div class="actions">
+          <button name="mode" value="calculate">Обчислити</button>
+          <button name="mode" value="convert" class="secondary">Перетворити A у вісімкове</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
